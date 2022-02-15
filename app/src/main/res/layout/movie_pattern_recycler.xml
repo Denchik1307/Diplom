@@ -3,62 +3,114 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    tools:background="@drawable/background_gradient">
 
-    <ImageView
-        android:id="@+id/imMoviePoster"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerMoviePoster"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleType="fitStart"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/testimage" />
+        app:reverseLayout="true"
+        tools:itemCount="3"
+        tools:listitem="@layout/movie_poster_pattern" />
+
+    <TextView
+        android:id="@+id/tvPopularityMovie"
+        android:layout_width="@dimen/popularity_size"
+        android:layout_height="@dimen/popularity_size"
+        android:background="@drawable/round_popularity_background"
+        android:gravity="center"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@id/recyclerMoviePoster"
+        app:layout_constraintTop_toTopOf="@id/recyclerMoviePoster"
+        tools:text="8.4" />
 
     <TextView
         android:id="@+id/tvTitleMovie"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:textColor="@color/light_green"
         android:textSize="16sp"
-        android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imMoviePoster" />
+        app:layout_constraintTop_toBottomOf="@+id/recyclerMoviePoster"
+        tools:text="Spider man" />
 
     <TextView
         android:id="@+id/tvSubtitleMovie"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/light_green"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvTitleMovie"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitleMovie" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleMovie"
+        tools:text="Subtitle" />
 
     <TextView
         android:id="@+id/tvDateMovieRelease"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="TextView"
+        android:textColor="@color/light_green"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvTitleMovie"
-        app:layout_constraintTop_toBottomOf="@+id/tvSubtitleMovie" />
+        app:layout_constraintTop_toBottomOf="@+id/tvSubtitleMovie"
+        tools:text="Date release" />
 
     <TextView
         android:id="@+id/tvGenreMovie"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="TextView"
+        android:textColor="@color/light_green"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvTitleMovie"
-        app:layout_constraintTop_toBottomOf="@+id/tvDateMovieRelease" />
+        app:layout_constraintTop_toBottomOf="@+id/tvDateMovieRelease"
+        tools:text="Genre" />
 
     <TextView
         android:id="@+id/tvOverview"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="TextView"
+        android:breakStrategy="simple"
+        android:ellipsize="end"
+        android:maxLines="4"
+        android:textColor="@color/white"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvTitleMovie"
-        app:layout_constraintTop_toBottomOf="@+id/tvGenreMovie" />
+        app:layout_constraintTop_toBottomOf="@+id/tvGenreMovie"
+        tools:text="    Действие фильма «Человек-паук: Нет пути домой» начинает своё развитие в тот момент, когда Мистерио удаётся выяснить истинную личность Человека-паука. С этого момента жизнь Питера Паркера становится невыносимой. Если ранее он мог успешно переключаться между своими амплуа, то сейчас это сделать невозможно. Переворачивается с ног на голову не только жизнь Человека-пауку, но и репутация. Понимая, что так жить невозможно, главный герой фильма «Человек-паук: Нет пути домой» принимает решение обратиться за помощью к своему давнему знакомому Стивену Стрэнджу. Питер Паркер надеется, что с помощью магии он сможет восстановить его анонимность. Стрэндж соглашается помочь." />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginHorizontal="16dp"
+        android:src="@drawable/shape_three_corner"
+        app:layout_constraintTop_toBottomOf="@id/tvOverview"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <ImageView
+        android:id="@+id/backgroundPoster"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0.2"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/test_image"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

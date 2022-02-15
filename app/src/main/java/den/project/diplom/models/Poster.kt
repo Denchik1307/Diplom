@@ -1,5 +1,4 @@
-package den.project.diplom.models.image
-
+package den.project.diplom.models
 
 import com.google.gson.annotations.SerializedName
 

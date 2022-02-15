@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <size
+        android:width="@dimen/popularity_size"
+        android:height="@dimen/popularity_size" />
+    <gradient
+        android:endColor="@color/design_default_color_secondary"
+        android:startColor="@color/design_default_color_primary" />
+    <corners android:radius="@dimen/popularity_size_corner"/>
+
+</shape>

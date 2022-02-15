@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:background="@drawable/background_gradient"
     tools:context=".presentation.MovieListFragment">
 
     <ImageView
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
-        android:scaleType="fitStart"
-        android:layout_height="wrap_content"
-        android:src="@drawable/testimage" />
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:alpha="0.2"
+        android:src="@drawable/test_image2" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerMovieList"
@@ -20,6 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        tools:itemCount="2"
         tools:listitem="@layout/movie_pattern_recycler" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
