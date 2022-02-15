@@ -8,8 +8,10 @@ interface MovieService {
     //https://api.themoviedb.org/3/configuration/languages?api_key=b561f68242545b905c15c305c059577a
 
     @GET("configuration/languages")
-    suspend fun getLanguage(
-        @Query("iso_639_1") shorNameLang: String,
+    suspend fun getLanguages(
+        @Query("iso_639_1") shortNameLang: String,
     ):List<LanguageDadaItem>
+
+
 
 }
