@@ -1,25 +1,12 @@
 package den.project.diplom.presentation
 
-import android.os.Bundle
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import by.kirich1409.viewbindingdelegate.viewBinding
 import den.project.diplom.R
+import den.project.diplom.databinding.FragmentMovieListBinding
 
 class MovieListFragment:Fragment(R.layout.fragment_movie_list) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
+    private val binding by viewBinding(FragmentMovieListBinding::bind)
 
-    override fun onStart() {
-        super.onStart()
-    }
 }
