@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:reverseLayout="true"
-        tools:itemCount="3"
+        tools:itemCount="5"
         tools:listitem="@layout/movie_poster_pattern" />
 
     <TextView
@@ -93,7 +93,7 @@
         tools:text="    Действие фильма «Человек-паук: Нет пути домой» начинает своё развитие в тот момент, когда Мистерио удаётся выяснить истинную личность Человека-паука. С этого момента жизнь Питера Паркера становится невыносимой. Если ранее он мог успешно переключаться между своими амплуа, то сейчас это сделать невозможно. Переворачивается с ног на голову не только жизнь Человека-пауку, но и репутация. Понимая, что так жить невозможно, главный герой фильма «Человек-паук: Нет пути домой» принимает решение обратиться за помощью к своему давнему знакомому Стивену Стрэнджу. Питер Паркер надеется, что с помощью магии он сможет восстановить его анонимность. Стрэндж соглашается помочь." />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/spacerView"
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:layout_marginHorizontal="16dp"
@@ -108,7 +108,7 @@
         android:alpha="0.2"
         android:scaleType="centerCrop"
         tools:src="@drawable/test_image"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="@+id/spacerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

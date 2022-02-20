@@ -3,16 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:background="@drawable/background_gradient"
-    tools:context=".presentation.MovieListFragment">
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:alpha="0.2"
-        android:src="@drawable/test_image2" />
+    android:layout_height="wrap_content"
+    tools:context=".presentation.movielist.moviefragment.MovieListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerMovieList"

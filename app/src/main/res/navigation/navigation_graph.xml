@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/movieListFragment"
-        android:name="den.project.diplom.presentation.MovieListFragment"
+        android:name="den.project.diplom.presentation.movielist.moviefragment.MovieListFragment"
         android:label="fragment_movie_list"
         tools:layout="@layout/fragment_movie_list" />
 </navigation>
