@@ -14,18 +14,18 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class FavoriteListFragment : Fragment(R.layout.favorite_movie_fragment) {
     //    private val binding by viewBinding(FragmentMovieListBinding::bind)
-    private val viewModel: FavoriteListViewModel by viewModels()
+//    private val viewModel: FavoriteListViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        lifecycleScope.launch {
-            viewModel.listMovie.collect {
-                Log.d("MOVIELIST", it.toString())
-            }
-        }
-
-//        viewModel.getPopular(1, "ru")
+//
+//        lifecycleScope.launch {
+//            viewModel.listMovie.collect {
+//                Log.d("MOVIE", it.toString())
+//            }
+//        }
+//
+////        viewModel.getPopular(1, "ru")
     }
 
 }

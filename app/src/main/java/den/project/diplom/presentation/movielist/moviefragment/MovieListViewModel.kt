@@ -1,5 +1,6 @@
 package den.project.diplom.presentation.movielist.moviefragment
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,7 +23,7 @@ class MovieListViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             getPopularMoviesUseCase(page, language)
                 .catch {
-                    print("Error happened")
+                    Log.d("MOVIE","2")
                 }
                 .collect { movieList ->
                     _listMovies.emit(movieList)

@@ -1,6 +1,6 @@
 package den.project.diplom.data.api
 
-import den.project.diplom.model.MovieDetail
+import den.project.diplom.data.api.model.response.MovieDetail
 import den.project.diplom.data.api.model.response.MovieResponse
 import den.project.diplom.data.api.model.response.TrailerResponse
 import retrofit2.Response

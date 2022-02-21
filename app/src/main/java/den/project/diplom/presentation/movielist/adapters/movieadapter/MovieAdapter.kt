@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import den.project.diplom.data.api.model.Movie
-import den.project.diplom.model.MovieDetail
+//import den.project.diplom.data.api.model.response.MovieDetail
 
 class MovieAdapter(private val context: Context) : RecyclerView.Adapter<MovieHolder>() {
 
@@ -26,5 +26,5 @@ class MovieAdapter(private val context: Context) : RecyclerView.Adapter<MovieHol
 
     override fun getItemCount(): Int = listMovie.size
 
-    private fun getGenre(movieId: MovieDetail): String = movieId.genres.toString()
+//    private fun getGenre(movieId: MovieDetail): String = movieId.genres.toString()
 }

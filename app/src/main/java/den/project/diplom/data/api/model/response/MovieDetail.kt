@@ -1,4 +1,4 @@
-package den.project.diplom.model
+package den.project.diplom.data.api.model.response
 
 import com.google.gson.annotations.SerializedName
 import den.project.diplom.data.api.model.Genre

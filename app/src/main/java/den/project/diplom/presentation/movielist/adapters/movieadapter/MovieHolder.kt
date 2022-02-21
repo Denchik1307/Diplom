@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import den.project.diplom.databinding.MoviePatternRecyclerBinding
-import den.project.diplom.model.GenresId
 import den.project.diplom.data.api.model.Movie
 
 class MovieHolder(
@@ -16,7 +15,7 @@ class MovieHolder(
         with(binding) {
             tvTitleMovie.text = movie.title
             tvDateMovieRelease.text = movie.releaseDate
-            tvGenreMovie.text = GenresId.genreIdToStringGenre(movie)
+//            tvGenreMovie.text = GenresId.genreIdToStringGenre(movie)
         }
     }
 

@@ -14,7 +14,7 @@ class FavoriteListViewModel @Inject constructor(
     private val getPopularMoviesUseCase: GetPopularMoviesUseCase
 ) :ViewModel() {
 
-    private val _listMovies = MutableStateFlow<List<Movie>>(listOf())
-    val listMovie: StateFlow<List<Movie>> = _listMovies.asStateFlow()
+//    private val _listMovies = MutableStateFlow<List<Movie>>(listOf())
+//    val listMovie: StateFlow<List<Movie>> = _listMovies.asStateFlow()
 
 }

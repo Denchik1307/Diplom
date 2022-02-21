@@ -21,11 +21,10 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
 
         lifecycleScope.launch {
             viewModel.listMovie.collect {
-                Log.d("MOVIELIST", it.toString())
+                Log.d("MOVIE", "1" + it.toString())
             }
         }
-
-        viewModel.getPopular(1, "ru")
+        viewModel.getPopular(page = 1, language = "ru")
     }
 
 //    private fun initObserver() {
