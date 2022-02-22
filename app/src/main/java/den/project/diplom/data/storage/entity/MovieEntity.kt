@@ -1,15 +1,14 @@
-//package den.project.diplom.data.storage.entity
+package den.project.diplom.data.storage.entity
 //
 //import androidx.room.Entity
-//import androidx.room.PrimaryKey
 //
-//@Entity
-//data class Guest (
-//    @PrimaryKey
-//    val idMovie: Long,
+//@Entity(tableName = "favorite")
+//data class MovieEntity(
+//    val id: Long,
 //    val title: String,
 //    val overview: String,
 //    val posterPath: String,
+//    val genres: List<Int>,
 //    val originalTitle: String,
 //    val backdropPath: String,
 //    val rating: Double,

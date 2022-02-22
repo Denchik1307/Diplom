@@ -1,30 +1,35 @@
 package den.project.diplom.presentation.movielist.adapters.movieadapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import den.project.diplom.data.api.model.Movie
-//import den.project.diplom.data.api.model.response.MovieDetail
 
-class MovieAdapter(private val context: Context) : RecyclerView.Adapter<MovieHolder>() {
+class MovieAdapter(
+    private val context: Context,
+    private val itemMovieListener: ItemMovieListener
+) : RecyclerView.Adapter<MovieHolder>() {
 
-    private val listMovie = mutableListOf<Movie>()
+    private var listMovie = mutableListOf<Movie>()
 
     override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
+        parent: ViewGroup, viewType: Int
     ): MovieHolder {
-        return MovieHolder.fromParent(parent)
+        return MovieHolder.fromParent(parent, itemMovieListener)
     }
 
     override fun onBindViewHolder(
-        holder: MovieHolder,
-        position: Int
+        holder: MovieHolder, position: Int
     ) {
         holder.bind(listMovie[position], context)
     }
 
     override fun getItemCount(): Int = listMovie.size
 
-//    private fun getGenre(movieId: MovieDetail): String = movieId.genres.toString()
+    @SuppressLint("NotifyDataSetChanged")
+    fun showMovie(movie: List<Movie>) {
+        listMovie.addAll(movie)
+        notifyDataSetChanged()
+    }
 }

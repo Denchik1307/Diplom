@@ -1,15 +1,16 @@
-//package den.project.diplom.data.storage.dao
+package den.project.diplom.data.storage.dao
 //
 //import androidx.room.*
-////import den.project.diplom.data.storage.dto.ReservationWithGuests
+//import den.project.diplom.data.storage.entity.MovieEntity
 //
 //@Dao
 //interface MovieDao {
-////    @Transaction
-////    @Insert(onConflict = OnConflictStrategy.REPLACE)
-////    fun insertAll(movie: List<ReservationWithGuests>)
 //
-////    @Transaction
-////    @Query("SELECT * FROM Guest")
-////    fun getAllMovies(): List<ReservationWithGuests>
+//    @Transaction
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    fun insertAll(movieEntity: List<MovieEntity>)
+//
+//    @Transaction
+//    @Query("SELECT * FROM favorite")
+//    fun getAllMovies(): List<MovieEntity>
 //}

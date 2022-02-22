@@ -11,4 +11,6 @@
     <color name="gradient_one">#0C0012</color>
     <color name="gradient_two">#31004B</color>
     <color name="transparent">#00FFFFFF</color>
+    <color name="title_color">#32E600</color>
+    <color name="oder_text_color">#29BC01</color>
 </resources>

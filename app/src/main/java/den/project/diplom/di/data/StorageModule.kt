@@ -1,4 +1,4 @@
-//package den.project.diplom.di.data
+package den.project.diplom.di.data
 //
 //import android.content.Context
 //import androidx.room.Room

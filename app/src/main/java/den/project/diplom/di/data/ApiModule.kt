@@ -5,7 +5,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import den.project.diplom.data.api.MovieAPI
-import den.project.diplom.data.api.DiscoverAPI
 import den.project.diplom.data.api.GenreAPI
 import den.project.diplom.data.api.SearchAPI
 import den.project.diplom.utils.Constants
@@ -30,11 +29,6 @@ class ApiModule {
     @Provides
     fun provideSearchAPI(retrofit: Retrofit): SearchAPI {
         return retrofit.create(SearchAPI::class.java)
-    }
-
-    @Provides
-    fun provideDiscoverAPI(retrofit: Retrofit): DiscoverAPI {
-        return retrofit.create(DiscoverAPI::class.java)
     }
 
     @Provides

@@ -7,7 +7,6 @@ import den.project.diplom.di.domain.DomainModule
 
 @Component(modules = [
    ApiModule::class,
-//   StorageModule::class,
    DataModule::class,
    DomainModule::class,
 ])

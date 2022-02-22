@@ -17,11 +17,11 @@ class DataModule {
 
     @Provides
     fun provideMovieRepository(movieApi: MovieAPI): MovieRepository {
-        return MovieRepositoryImpl(movieApi)
+        return MovieRepositoryImpl(movieApi = movieApi)
     }
 
     @Provides
     fun provideGenreRepository(genreApi: GenreAPI): GenreRepository {
-        return GenreRepositoryImpl(genreApi)
+        return GenreRepositoryImpl(genreAPI = genreApi)
     }
 }

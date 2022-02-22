@@ -7,15 +7,12 @@ import den.project.diplom.utils.Constants
 
 class GenreRepositoryImpl(
     private val genreAPI: GenreAPI,
-//    private val genreDao: GenreDao
 ): GenreRepository {
 
     override suspend fun getGenres(language: String): List<Genre> {
         val genres = genreAPI.getGenres(Constants.API_KEY_MOVIE, language)
-
         if(genres.isSuccessful) {
-            val list = genres.body()!!.genres
-            return list
+            return genres.body()!!.genres
         } else {
             throw Exception(genres.errorBody().toString())
         }
