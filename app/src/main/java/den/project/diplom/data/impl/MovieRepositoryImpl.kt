@@ -4,7 +4,6 @@ import android.util.Log
 import den.project.diplom.data.MovieRepository
 import den.project.diplom.data.api.MovieAPI
 import den.project.diplom.data.api.model.Movie
-import den.project.diplom.data.api.model.Trailer
 import den.project.diplom.data.api.model.response.MovieDetail
 import den.project.diplom.data.api.model.response.TrailerResponse
 import den.project.diplom.utils.Constants
@@ -31,7 +30,8 @@ class MovieRepositoryImpl(
     }
 
     override suspend fun getTrailer(movie_id: String): TrailerResponse {
-        val trailer = movieApi.getTrailerLink(Constants.API_KEY_MOVIE, movie_id)
+        val trailer = movieApi.getTrailerLink(movie_id, Constants.API_KEY_MOVIE, "ru")
+        Log.d("MOVIE", trailer.body().toString() + " <- TRAILER RESPONSE")
         if (trailer.isSuccessful) {
             return trailer.body()!!
         } else {

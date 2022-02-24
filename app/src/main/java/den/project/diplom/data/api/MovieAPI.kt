@@ -19,13 +19,14 @@ interface MovieAPI {
 
     @GET("movie/{movie_id}")
     suspend fun getMovieDetail(
-        @Path("movie_id") movie_id: String,
         @Query("api_key") api_key: String,
+        @Path("movie_id") movie_id: String,
     ): Response<MovieDetail>
 
     @GET("movie/{movie_id}/videos")
     suspend fun getTrailerLink(
         @Path("movie_id") movie_id: String,
         @Query("api_key") api_key: String,
+        @Query("language") language: String
     ): Response<TrailerResponse>
 }

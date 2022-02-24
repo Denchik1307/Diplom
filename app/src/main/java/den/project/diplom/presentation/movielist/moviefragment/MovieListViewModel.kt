@@ -24,7 +24,7 @@ class MovieListViewModel @Inject constructor(
     val listMovie: StateFlow<List<Movie>> = _listMovies.asStateFlow()
 
     private val _trailer = MutableStateFlow<String>(value = "")
-    val trailer: StateFlow<String> = _trailer
+    val trailer: StateFlow<String> = _trailer.asStateFlow()
 
     fun getPopular(page: Int, language: String) = viewModelScope.launch(Dispatchers.IO) {
         getPopularMoviesUseCase(page = page, language = language).collect {
@@ -32,8 +32,8 @@ class MovieListViewModel @Inject constructor(
         }
     }
 
-    fun getTrailer(id: String) = viewModelScope.launch(Dispatchers.IO) {
-        getTrailerMoviesUseCase(id = id).collect { trailer->
+    fun getTrailer(movie_id: String) = viewModelScope.launch(Dispatchers.IO) {
+        getTrailerMoviesUseCase(movie_id = movie_id).collect { trailer->
             _trailer.value = trailer.key
         }
     }

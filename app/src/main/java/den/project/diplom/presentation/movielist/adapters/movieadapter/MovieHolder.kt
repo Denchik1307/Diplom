@@ -25,7 +25,7 @@ class MovieHolder(
             tvGenreMovie.text = GenresId.genreIdToStringGenre(movie.genre)
             tvPopularityMovie.text = movie.rating.toString()
             imTrailer.setOnClickListener {
-                itemMovieListener.clickListener(movie.id.toString())
+                itemMovieListener.clickListener(id = movie.id.toString())
             }
         }
     }

@@ -1,8 +1,10 @@
 package den.project.diplom.presentation.movielist.moviefragment
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -25,21 +27,26 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
 
     private val itemMovieListener: ItemMovieListener = object : ItemMovieListener {
         override fun clickListener(id: String) {
+            Log.d("MOVIE", id)
             viewModel.getTrailer(id)
+            initYoutube()
         }
     }
-    private val movieAdapter by lazy { MovieAdapter(requireContext(), itemMovieListener) }
-    private val binding by viewBinding(FragmentMovieListBinding::bind)
+    private val movieAdapter by lazy { MovieAdapter(
+        context = requireContext(),
+        itemMovieListener = itemMovieListener
+    ) }
+    private val binding by viewBinding(vbFactory = FragmentMovieListBinding::bind)
     private val viewModel: MovieListViewModel by viewModels()
     private val totalPage: Int = 1
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecycler()
-        initObserver()
+//
         lifecycleScope.launch {
             viewModel.listMovie.collect {
-                movieAdapter.showMovie(it)
+                movieAdapter.showMovie(movie = it)
             }
         }
         viewModel.getPopular(page = totalPage, language = "ru")
@@ -52,21 +59,26 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
         }
     }
 
-    private fun initObserver() {
-//            val intentOne = Intent(
-//                Intent.ACTION_VIEW, Uri.parse(Constants.BASE_PATH_TRAILER + viewModel.trailer.value)
-//            )
-//            val intentTwo = Intent(
-//                Intent.ACTION_VIEW,
-//                Uri.parse(Constants.BASE_PATH_TRAILER2 + viewModel.trailer.value)
-//            )
-//            Toast.makeText(requireContext(), intentOne.dataString, Toast.LENGTH_LONG).show()
-//            Toast.makeText(requireContext(), intentTwo.dataString, Toast.LENGTH_LONG).show()
-//            try {
-//                requireActivity().startActivity(intentOne)
-//            } catch (ex: ActivityNotFoundException) {
-//                requireActivity().startActivity(intentTwo)
-//            }
-
+    private fun initYoutube() {
+        lifecycleScope.launch {
+            viewModel.trailer.collect {
+                val intentOne = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(Constants.BASE_PATH_TRAILER + viewModel.trailer.value)
+                )
+                val intentTwo = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(Constants.BASE_PATH_TRAILER2 + viewModel.trailer.value)
+                )
+                Log.d("MOVIE",it +" <- key")
+                Toast.makeText(requireContext(), intentOne.dataString, Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), intentTwo.dataString, Toast.LENGTH_LONG).show()
+                try {
+                    requireActivity().startActivity(intentOne)
+                } catch (ex: ActivityNotFoundException) {
+                    requireActivity().startActivity(intentTwo)
+                }
+            }
+        }
     }
 }
