@@ -31,6 +31,7 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
             viewModel.getTrailer(id)
             initYoutube()
         }
+
     }
     private val movieAdapter by lazy { MovieAdapter(
         context = requireContext(),

@@ -7,12 +7,12 @@ import den.project.diplom.data.storage.entity.MovieEntity
 interface MovieDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(movieEntity: List<MovieEntity>)
+    fun insert()
 
     @Query("SELECT * FROM favorite")
-    fun getMovies(): List<MovieEntity>
+    fun getMovies(id: String?): List<MovieEntity>
 
     @Query("DELETE FROM favorite WHERE id = :id")
-    fun getMovies(id:String)
+    fun deleteMovies(id:String?)
 
 }
