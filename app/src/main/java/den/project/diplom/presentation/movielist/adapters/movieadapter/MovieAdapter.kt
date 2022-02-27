@@ -16,7 +16,11 @@ class MovieAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
     ): MovieHolder {
+//        when (viewType) {
+//            1 ->
         return MovieHolder.fromParent(parent, itemMovieListener)
+//            2 -> return FavoriteHolder.fromParent(parent, itemMovieListener)
+//        }
     }
 
     override fun onBindViewHolder(

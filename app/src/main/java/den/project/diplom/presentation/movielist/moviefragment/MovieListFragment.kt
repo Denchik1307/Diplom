@@ -1,6 +1,5 @@
 package den.project.diplom.presentation.movielist.moviefragment
 
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -10,7 +9,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.lifecycle.viewModelScope
+import androidx.recyclerview.widget.GridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import den.project.diplom.R
@@ -21,7 +21,6 @@ import den.project.diplom.utils.Constants
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-
 @AndroidEntryPoint
 class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
 
@@ -31,7 +30,6 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
             viewModel.getTrailer(id)
             initYoutube()
         }
-
     }
     private val movieAdapter by lazy { MovieAdapter(
         context = requireContext(),
@@ -47,6 +45,7 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
 //
         lifecycleScope.launch {
             viewModel.listMovie.collect {
+                Log.d("MOVIE", "$it <- listMovie")
                 movieAdapter.showMovie(movie = it)
             }
         }
@@ -56,29 +55,27 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
     private fun initRecycler() {
         binding.apply {
             recyclerMovieList.adapter = movieAdapter
-            recyclerMovieList.layoutManager = LinearLayoutManager(requireContext())
+            recyclerMovieList.layoutManager = GridLayoutManager(requireContext(), 2)
         }
     }
 
     private fun initYoutube() {
-        lifecycleScope.launch {
+        viewModel.viewModelScope.launch {
             viewModel.trailer.collect {
                 val intentOne = Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(Constants.BASE_PATH_TRAILER + viewModel.trailer.value)
+                    Intent.ACTION_VIEW, Uri.parse(Constants.BASE_PATH_TRAILER + it)
                 )
                 val intentTwo = Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(Constants.BASE_PATH_TRAILER2 + viewModel.trailer.value)
+                    Intent.CATEGORY_APP_BROWSER, Uri.parse(Constants.BASE_PATH_TRAILER2 + it)
                 )
-                Log.d("MOVIE",it +" <- key")
+                Log.d("MOVIE", "$it <- key")
                 Toast.makeText(requireContext(), intentOne.dataString, Toast.LENGTH_LONG).show()
                 Toast.makeText(requireContext(), intentTwo.dataString, Toast.LENGTH_LONG).show()
-                try {
-                    requireActivity().startActivity(intentOne)
-                } catch (ex: ActivityNotFoundException) {
-                    requireActivity().startActivity(intentTwo)
-                }
+//                try {
+//                    requireActivity().startActivity(intentOne)
+//                } catch (ex: ActivityNotFoundException) {
+//                    requireActivity().startActivity(intentTwo)
+//                }
             }
         }
     }

@@ -2,17 +2,21 @@ package den.project.diplom.data.storage.dao
 
 import androidx.room.*
 import den.project.diplom.data.storage.entity.MovieEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MovieDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert()
+    suspend fun insert(movieEntity: MovieEntity)
 
-    @Query("SELECT * FROM favorite")
-    fun getMovies(id: String?): List<MovieEntity>
+    @Query("SELECT * FROM favorite ORDER BY id DESC")
+    fun getAllMovies(): Flow<List<MovieEntity>>
+
+//    @Query("SELECT * FROM favorite WHERE id = :id")
+//    fun getMovie(id: String): List<MovieEntity>
 
     @Query("DELETE FROM favorite WHERE id = :id")
-    fun deleteMovies(id:String?)
+    suspend fun deleteMovies(id: String)
 
 }

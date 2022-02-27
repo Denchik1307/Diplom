@@ -1,11 +1,9 @@
 package den.project.diplom.data.impl
 
-import android.util.Log
 import den.project.diplom.data.MovieRepository
 import den.project.diplom.data.api.MovieAPI
 import den.project.diplom.data.api.model.Movie
 import den.project.diplom.data.api.model.response.MovieDetail
-import den.project.diplom.data.api.model.response.TrailerResponse
 import den.project.diplom.utils.Constants
 
 class MovieRepositoryImpl(
@@ -29,11 +27,10 @@ class MovieRepositoryImpl(
         }
     }
 
-    override suspend fun getTrailer(movie_id: String): TrailerResponse {
+    override suspend fun getTrailer(movie_id: String): String {
         val trailer = movieApi.getTrailerLink(movie_id, Constants.API_KEY_MOVIE, "ru")
-        Log.d("MOVIE", trailer.body().toString() + " <- TRAILER RESPONSE")
         if (trailer.isSuccessful) {
-            return trailer.body()!!
+            return trailer.body()!!.results[0].key
         } else {
             throw Error(trailer.errorBody().toString())
         }

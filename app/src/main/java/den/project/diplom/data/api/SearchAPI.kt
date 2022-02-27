@@ -12,5 +12,6 @@ interface SearchAPI {
         @Query("api_key") api_key: String,
         @Query("page") page: Int,
         @Query("query") query: String,
+        @Query("language") language: String
     ): Response<MovieResponse>
 }

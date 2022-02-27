@@ -16,7 +16,6 @@ import javax.inject.Singleton
 class StorageModule {
 
     @Provides
-    @Singleton
     fun provideRoomDatabase(@ApplicationContext context: Context): MovieDatabase {
         return Room.databaseBuilder(
             context,
