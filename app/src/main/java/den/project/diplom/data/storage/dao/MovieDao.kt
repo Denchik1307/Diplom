@@ -1,6 +1,8 @@
 package den.project.diplom.data.storage.dao
 
 import androidx.room.*
+import dagger.Provides
+import dagger.hilt.InstallIn
 import den.project.diplom.data.storage.entity.MovieEntity
 import kotlinx.coroutines.flow.Flow
 

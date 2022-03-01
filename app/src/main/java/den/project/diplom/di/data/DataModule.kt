@@ -6,10 +6,10 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import den.project.diplom.data.GenreRepository
 import den.project.diplom.data.MovieRepository
-import den.project.diplom.data.api.GenreAPI
-import den.project.diplom.data.api.MovieAPI
-import den.project.diplom.data.impl.GenreRepositoryImpl
-import den.project.diplom.data.impl.MovieRepositoryImpl
+import den.project.diplom.data.api.api.GenreAPI
+import den.project.diplom.data.api.api.MovieAPI
+import den.project.diplom.data.api.repository.impl.GenreRepositoryImpl
+import den.project.diplom.data.api.repository.impl.MovieRepositoryImpl
 
 @Module
 @InstallIn(SingletonComponent::class)

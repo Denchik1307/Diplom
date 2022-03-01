@@ -4,9 +4,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import den.project.diplom.data.api.MovieAPI
-import den.project.diplom.data.api.GenreAPI
-import den.project.diplom.data.api.SearchAPI
+import den.project.diplom.data.api.api.MovieAPI
+import den.project.diplom.data.api.api.GenreAPI
+import den.project.diplom.data.api.api.SearchAPI
 import den.project.diplom.utils.Constants
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

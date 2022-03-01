@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import den.project.diplom.R
 import den.project.diplom.data.api.model.Movie
 import den.project.diplom.databinding.MoviePatternRecyclerBinding
 import den.project.diplom.utils.Constants.BASE_PATH_POSTER
@@ -25,8 +26,18 @@ class MovieHolder(
             tvGenreMovie.text = GenresId.genreIdToStringGenre(movie.genre)
             tvPopularityMovie.text = movie.rating.toString()
             imTrailer.setOnClickListener {
-                itemMovieListener.clickListener(id = movie.id.toString())
+                itemMovieListener.idClickListener(id = movie.id.toString())
             }
+            imFavorite.setOnClickListener {
+                movie.isFavorite = true
+                imFavorite.setImageResource(R.drawable.ic_star_selected)
+                itemMovieListener.favoriteClickListener()
+            }
+            imMoviePoster.setOnClickListener {
+                itemMovieListener.onMoviesClickListener(movie.id.toString())
+            }
+
+
         }
     }
 

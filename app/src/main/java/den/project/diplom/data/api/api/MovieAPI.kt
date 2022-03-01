@@ -1,4 +1,4 @@
-package den.project.diplom.data.api
+package den.project.diplom.data.api.api
 
 import den.project.diplom.data.api.model.response.MovieDetail
 import den.project.diplom.data.api.model.response.MovieResponse

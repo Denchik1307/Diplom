@@ -1,7 +1,7 @@
-package den.project.diplom.data.impl
+package den.project.diplom.data.api.repository.impl
 
 import den.project.diplom.data.MovieRepository
-import den.project.diplom.data.api.MovieAPI
+import den.project.diplom.data.api.api.MovieAPI
 import den.project.diplom.data.api.model.Movie
 import den.project.diplom.data.api.model.response.MovieDetail
 import den.project.diplom.utils.Constants
