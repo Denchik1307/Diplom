@@ -1,4 +1,4 @@
-package den.project.diplom.data
+package den.project.diplom.data.api.repository
 
 import den.project.diplom.data.api.model.Genre
 

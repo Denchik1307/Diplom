@@ -1,6 +1,6 @@
 package den.project.diplom.data.api.repository.impl
 
-import den.project.diplom.data.GenreRepository
+import den.project.diplom.data.api.repository.GenreRepository
 import den.project.diplom.data.api.api.GenreAPI
 import den.project.diplom.data.api.model.Genre
 import den.project.diplom.utils.Constants

@@ -9,7 +9,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import den.project.diplom.data.storage.MovieDatabase
 import den.project.diplom.data.storage.dao.MovieDao
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)

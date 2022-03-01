@@ -15,4 +15,9 @@
         android:name="den.project.diplom.presentation.movielist.favoritefragment.FavoriteListFragment"
         android:label="favorite_movie_fragment"
         tools:layout="@layout/fragment_movie_favorite" />
+    <fragment
+        android:id="@+id/singleMovieFragment"
+        android:name="den.project.diplom.presentation.movielist.singlemovie.SingleMovieFragment"
+        android:label="fragment_single_movie"
+        tools:layout="@layout/fragment_single_movie" />
 </navigation>

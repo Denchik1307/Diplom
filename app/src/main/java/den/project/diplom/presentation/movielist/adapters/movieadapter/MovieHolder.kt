@@ -31,7 +31,7 @@ class MovieHolder(
             imFavorite.setOnClickListener {
                 movie.isFavorite = true
                 imFavorite.setImageResource(R.drawable.ic_star_selected)
-                itemMovieListener.favoriteClickListener()
+//                itemMovieListener.favoriteClickListener()
             }
             imMoviePoster.setOnClickListener {
                 itemMovieListener.onMoviesClickListener(movie.id.toString())

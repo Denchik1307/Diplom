@@ -1,9 +1,11 @@
 package den.project.diplom.data.api.repository.impl
 
-import den.project.diplom.data.MovieRepository
+import android.util.Log
 import den.project.diplom.data.api.api.MovieAPI
 import den.project.diplom.data.api.model.Movie
 import den.project.diplom.data.api.model.response.MovieDetail
+import den.project.diplom.data.api.model.response.TrailerResponse
+import den.project.diplom.data.api.repository.MovieRepository
 import den.project.diplom.utils.Constants
 
 class MovieRepositoryImpl(
@@ -18,7 +20,7 @@ class MovieRepositoryImpl(
         }
     }
 
-    override suspend fun getMovie(movie_id: String, language: String): MovieDetail {
+    override suspend fun getMovieDetail(movie_id: String, language: String): MovieDetail {
         val movie = movieApi.getMovieDetail(Constants.API_KEY_MOVIE, language)
         if (movie.isSuccessful) {
             return movie.body()!!
@@ -27,10 +29,10 @@ class MovieRepositoryImpl(
         }
     }
 
-    override suspend fun getTrailer(movie_id: String): String {
-        val trailer = movieApi.getTrailerLink(movie_id, Constants.API_KEY_MOVIE, "ru")
+    override suspend fun getTrailer(movie_id: String, language: String): TrailerResponse {
+        val trailer = movieApi.getTrailerLink(movie_id, Constants.API_KEY_MOVIE, language)
         if (trailer.isSuccessful) {
-            return trailer.body()!!.results[0].key
+            return trailer.body()!!
         } else {
             throw Error(trailer.errorBody().toString())
         }

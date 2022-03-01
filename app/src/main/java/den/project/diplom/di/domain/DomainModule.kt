@@ -4,9 +4,11 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import den.project.diplom.data.MovieRepository
+import den.project.diplom.data.api.repository.MovieRepository
+import den.project.diplom.domain.GetDetailMoviesUseCase
 import den.project.diplom.domain.GetPopularMoviesUseCase
 import den.project.diplom.domain.GetTrailerMoviesUseCase
+import den.project.diplom.domain.impl.GetDetailMoviesUseCaseImpl
 import den.project.diplom.domain.impl.GetPopularMoviesUseCaseImpl
 import den.project.diplom.domain.impl.GetTrailerMoviesUseCaseImpl
 
@@ -26,6 +28,13 @@ class DomainModule {
         movieRepository: MovieRepository
     ): GetTrailerMoviesUseCase {
         return GetTrailerMoviesUseCaseImpl(movieRepository = movieRepository)
+    }
+
+    @Provides
+    fun provideGetDetailMoviesUseCase(
+        movieRepository: MovieRepository
+    ): GetDetailMoviesUseCase {
+        return GetDetailMoviesUseCaseImpl(movieRepository = movieRepository)
     }
 
 

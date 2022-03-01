@@ -1,6 +1,6 @@
 package den.project.diplom.data.api.repository.impl
 
-import den.project.diplom.data.SearchRepository
+import den.project.diplom.data.api.repository.SearchRepository
 import den.project.diplom.data.api.api.SearchAPI
 import den.project.diplom.data.api.model.Movie
 import den.project.diplom.utils.Constants
