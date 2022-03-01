@@ -7,6 +7,7 @@ import den.project.diplom.data.api.model.response.MovieDetail
 import den.project.diplom.data.api.model.response.TrailerResponse
 import den.project.diplom.data.api.repository.MovieRepository
 import den.project.diplom.utils.Constants
+import kotlinx.coroutines.awaitAll
 
 class MovieRepositoryImpl(
     private val movieApi: MovieAPI

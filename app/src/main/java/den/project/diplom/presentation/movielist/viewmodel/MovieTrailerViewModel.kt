@@ -22,7 +22,7 @@ class MovieTrailerViewModel @Inject constructor(
     fun getTrailer(movie_id: String) {
         viewModelScope.launch(Dispatchers.Main) {
             getTrailerMoviesUseCase(movie_id, "ru").collect {
-                _trailer.value = it?.results[0]?.key
+                _trailer.value = it.results[0].key
             }
         }
     }
