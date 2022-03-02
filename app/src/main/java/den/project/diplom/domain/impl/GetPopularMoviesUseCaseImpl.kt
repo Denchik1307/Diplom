@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.flow
 class GetPopularMoviesUseCaseImpl(
     private val movieRepository: MovieRepository
 ): GetPopularMoviesUseCase {
-    override suspend fun invoke(page: Int, language: String): Flow<List<Movie>> = flow {
+    override suspend fun getPopular(page: Int, language: String): Flow<List<Movie>> = flow {
         emit(movieRepository.getPopular(page = page, language = language))
     }
 }

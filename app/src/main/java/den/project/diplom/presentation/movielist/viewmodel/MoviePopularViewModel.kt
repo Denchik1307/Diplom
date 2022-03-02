@@ -22,7 +22,7 @@ class MoviePopularViewModel @Inject constructor(
     val listMovie: StateFlow<List<Movie>> = _listMovies.asStateFlow()
 
     fun getPopular(page: Int, language: String) = viewModelScope.launch(Dispatchers.IO) {
-        getPopularMoviesUseCase(page = page, language = language).collect {
+        getPopularMoviesUseCase.getPopular(page = page, language = language).collect {
             _listMovies.value = it
         }
     }

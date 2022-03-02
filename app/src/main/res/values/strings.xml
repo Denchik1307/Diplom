@@ -1,27 +1,3 @@
 <resources>
     <string name="app_name">Diplom</string>
-
-    <string name="selected_genre">Selected genre:</string>
-    <string-array name="Spinner">
-        <item>приключения</item>
-        <item>фэнтези</item>
-        <item>мультфильм</item>
-        <item>драма</item>
-        <item>ужасы</item>
-        <item>боевик</item>
-        <item>комедия</item>
-        <item>история</item>
-        <item>вестерн</item>
-        <item>триллер</item>
-        <item>криминал</item>
-        <item>документальный</item>
-        <item>фантастика</item>
-        <item>детектив</item>
-        <item>музыка</item>
-        <item>мелодрама</item>
-        <item>семейный</item>
-        <item>военный</item>
-        <item>телевизионный фильм</item>
-    </string-array>
-
 </resources>

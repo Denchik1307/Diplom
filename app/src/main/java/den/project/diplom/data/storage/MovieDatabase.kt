@@ -12,4 +12,6 @@ import den.project.diplom.data.storage.entity.MovieEntity
 )
 abstract class MovieDatabase : RoomDatabase() {
     abstract fun getMovieDao(): MovieDao
+
+
 }

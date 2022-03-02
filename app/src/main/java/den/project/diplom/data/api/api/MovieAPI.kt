@@ -21,6 +21,7 @@ interface MovieAPI {
     suspend fun getMovieDetail(
         @Path("movie_id") movie_id: String,
         @Query("api_key") api_key: String,
+        @Query("language") language: String
     ): Response<MovieDetail>
 
     @GET("movie/{movie_id}/videos")

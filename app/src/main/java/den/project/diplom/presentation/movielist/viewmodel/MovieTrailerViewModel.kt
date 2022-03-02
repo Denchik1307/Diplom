@@ -16,13 +16,23 @@ class MovieTrailerViewModel @Inject constructor(
     private val getTrailerMoviesUseCase: GetTrailerMoviesUseCase
 ) : ViewModel() {
 
-    private val _trailer = MutableLiveData<String>("test")
+    private val _trailer = MutableLiveData("empty")
     val trailer: LiveData<String> = _trailer
 
     fun getTrailer(movie_id: String) {
         viewModelScope.launch(Dispatchers.Main) {
-            getTrailerMoviesUseCase(movie_id, "ru").collect {
-                _trailer.value = it.results[0].key
+            getTrailerMoviesUseCase.getTrailer(movie_id, "ru").collect {trailerRu->
+                if (trailerRu.isNotEmpty()) {
+                    _trailer.value = trailerRu[0].key!!
+                } else {
+                    getTrailerMoviesUseCase.getTrailer(movie_id, "en").collect { trailerEn ->
+                        if (trailerEn.isNotEmpty()) {
+                            _trailer.value = trailerEn[0].key!!
+                        } else {
+                            _trailer.value = "empty"
+                        }
+                    }
+                }
             }
         }
     }

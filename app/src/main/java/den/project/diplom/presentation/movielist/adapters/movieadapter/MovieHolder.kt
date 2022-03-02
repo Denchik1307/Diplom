@@ -25,13 +25,18 @@ class MovieHolder(
             tvOverview.text = movie.overview
             tvGenreMovie.text = GenresId.genreIdToStringGenre(movie.genre)
             tvPopularityMovie.text = movie.rating.toString()
+            if (movie.isFavorite){
+                imFavorite.setImageResource(R.drawable.ic_star_selected)
+            }else{
+                imFavorite.setImageResource(R.drawable.ic_star_unselected)
+            }
             imTrailer.setOnClickListener {
                 itemMovieListener.idClickListener(id = movie.id.toString())
             }
             imFavorite.setOnClickListener {
                 movie.isFavorite = true
                 imFavorite.setImageResource(R.drawable.ic_star_selected)
-//                itemMovieListener.favoriteClickListener()
+                itemMovieListener.favoriteClickListener()
             }
             imMoviePoster.setOnClickListener {
                 itemMovieListener.onMoviesClickListener(movie.id.toString())

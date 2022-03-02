@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -47,11 +48,12 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
         }
 
         override fun favoriteClickListener() {
-            TODO("Not yet implemented")
+
         }
 
         override fun onMoviesClickListener(id: String) {
             viewModelDetail.getMovieDetail(movie_id = id, "ru")
+            view?.findNavController()?.navigate(R.id.singleMovieFragment)
         }
     }
 
@@ -98,25 +100,29 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
     }
 
     private fun initYoutubeObserver() {
-//        viewModelTrailer.viewModelScope.launch {
         viewModelTrailer.trailer.observe(viewLifecycleOwner) {
-            val intentOne =
-                Intent(Intent.ACTION_VIEW, Uri.parse(Constants.BASE_PATH_TRAILER + it))
-            val intentTwo = Intent(
-                Intent.CATEGORY_APP_BROWSER,
-                Uri.parse(Constants.BASE_PATH_TRAILER2 + it)
-            )
-            Log.d("MOVIE", "$it <- key")
-            Log.d("MOVIE", "${intentOne.dataString} <- intent one")
-            Log.d("MOVIE", "${intentTwo.dataString} <- intent two")
-            if (!isInit) {
-                isInit = true
-            }else{
+            if (it != "empty") {
+                val intentOne =
+                    Intent(Intent.ACTION_VIEW, Uri.parse(Constants.BASE_PATH_TRAILER + it))
+                val intentTwo = Intent(
+                    Intent.CATEGORY_APP_BROWSER,
+                    Uri.parse(Constants.BASE_PATH_TRAILER2 + it)
+                )
+                Log.d("MOVIE", "$it <- key")
+                Log.d("MOVIE", "${intentOne.dataString} <- intent one")
+                Log.d("MOVIE", "${intentTwo.dataString} <- intent two")
                 try {
                     requireActivity().startActivity(intentOne)
                 } catch (ex: ActivityNotFoundException) {
                     requireActivity().startActivity(intentTwo)
                 }
+            } else {
+                if (!isInit) isInit = true
+                Toast.makeText(
+                    requireContext(),
+                    "Нет ссылки на рейлер для этого фильма :(",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
     }

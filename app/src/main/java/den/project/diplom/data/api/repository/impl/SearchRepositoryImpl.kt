@@ -10,7 +10,7 @@ class SearchRepositoryImpl(
 ) : SearchRepository {
     override suspend fun searchMovie(page: Int, query: String, language: String): List<Movie> {
         val movie = searchApi.getSearchMovie(
-            Constants.API_KEY_MOVIE, page = page, query = query, language = "ru"
+            Constants.API_KEY_MOVIE, page = page, query = query, language = language
         )
         if (movie.isSuccessful) {
             return movie.body()!!.results

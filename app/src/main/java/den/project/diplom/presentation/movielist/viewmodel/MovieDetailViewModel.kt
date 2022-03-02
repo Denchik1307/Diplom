@@ -23,7 +23,7 @@ class MovieDetailViewModel @Inject constructor(
 
     fun getMovieDetail(movie_id: String, language: String) =
         viewModelScope.launch(Dispatchers.IO) {
-            getDetailMoviesUseCase(movie_id, language).collect {
+            getDetailMoviesUseCase.getMovieDetail(movie_id, language).collect {
                 _detailMovie.value = listOf(it)
             }
         }
