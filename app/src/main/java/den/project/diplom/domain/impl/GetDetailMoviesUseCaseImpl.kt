@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.flow
 class GetDetailMoviesUseCaseImpl(
     private val movieRepository: MovieRepository
 ) : GetDetailMoviesUseCase {
-    override suspend fun getMovieDetail(movieId: String, language: String): Flow<MovieDetail> = flow {
+    override suspend fun invoke(movieId: String, language: String): Flow<MovieDetail> = flow {
         emit(movieRepository.getMovieDetail(movie_id = movieId, language = language))
     }
 }

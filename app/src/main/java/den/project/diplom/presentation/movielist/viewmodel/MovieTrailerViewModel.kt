@@ -21,17 +21,12 @@ class MovieTrailerViewModel @Inject constructor(
 
     fun getTrailer(movie_id: String) {
         viewModelScope.launch(Dispatchers.Main) {
-            getTrailerMoviesUseCase.getTrailer(movie_id, "ru").collect {trailerRu->
-                if (trailerRu.isNotEmpty()) {
-                    _trailer.value = trailerRu[0].key!!
-                } else {
-                    getTrailerMoviesUseCase.getTrailer(movie_id, "en").collect { trailerEn ->
-                        if (trailerEn.isNotEmpty()) {
-                            _trailer.value = trailerEn[0].key!!
-                        } else {
-                            _trailer.value = "empty"
-                        }
-                    }
+            getTrailerMoviesUseCase(movie_id, "ru").collect { trailerRu ->
+                if (trailerRu.isNotEmpty()) _trailer.value =
+                    trailerRu[0].key!! else getTrailerMoviesUseCase(movie_id,
+                    "en").collect { trailerEn ->
+                    if (trailerEn.isNotEmpty()) _trailer.value =
+                        trailerEn[0].key!! else _trailer.value = "empty"
                 }
             }
         }

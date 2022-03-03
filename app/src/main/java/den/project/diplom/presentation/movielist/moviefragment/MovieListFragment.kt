@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -44,7 +43,6 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
         override fun idClickListener(id: String) {
             Log.d("MOVIE", id)
             viewModelTrailer.getTrailer(id)
-
         }
 
         override fun favoriteClickListener() {
@@ -53,7 +51,7 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
 
         override fun onMoviesClickListener(id: String) {
             viewModelDetail.getMovieDetail(movie_id = id, "ru")
-            view?.findNavController()?.navigate(R.id.singleMovieFragment)
+//            view?.findNavController()?.navigate(R.id.singleMovieFragment)
         }
     }
 
@@ -104,10 +102,8 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
             if (it != "empty") {
                 val intentOne =
                     Intent(Intent.ACTION_VIEW, Uri.parse(Constants.BASE_PATH_TRAILER + it))
-                val intentTwo = Intent(
-                    Intent.CATEGORY_APP_BROWSER,
-                    Uri.parse(Constants.BASE_PATH_TRAILER2 + it)
-                )
+                val intentTwo = Intent(Intent.CATEGORY_APP_BROWSER,
+                    Uri.parse(Constants.BASE_PATH_TRAILER2 + it))
                 Log.d("MOVIE", "$it <- key")
                 Log.d("MOVIE", "${intentOne.dataString} <- intent one")
                 Log.d("MOVIE", "${intentTwo.dataString} <- intent two")
@@ -117,17 +113,14 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
                     requireActivity().startActivity(intentTwo)
                 }
             } else {
-                if (!isInit) isInit = true
-                Toast.makeText(
-                    requireContext(),
-                    "Нет ссылки на рейлер для этого фильма :(",
-                    Toast.LENGTH_LONG
-                ).show()
+                if (isInit) {
+                    Toast.makeText(requireContext(),
+                        "Нет ссылки на рейлер для этого фильма :(",
+                        Toast.LENGTH_LONG).show()
+                } else {
+                    isInit = true
+                }
             }
         }
     }
 }
-
-
-
-
