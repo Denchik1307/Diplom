@@ -1,7 +1,7 @@
 package den.project.diplom.domain
 
-interface SaveDaoUseCase {
-    suspend fun saveMovieToBD(){
+import den.project.diplom.data.storage.dao.MovieEntity
 
-    }
+interface SaveDaoUseCase {
+    suspend fun saveDb(movieEntity: MovieEntity)
 }

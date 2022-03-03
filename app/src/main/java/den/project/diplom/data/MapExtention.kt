@@ -1,7 +1,7 @@
 package den.project.diplom.data.storage
 
 import den.project.diplom.data.api.model.Movie
-import den.project.diplom.data.storage.entity.MovieEntity
+import den.project.diplom.data.storage.dao.MovieEntity
 import java.util.regex.Pattern
 
 fun Movie.toMovieEntity() = MovieEntity(

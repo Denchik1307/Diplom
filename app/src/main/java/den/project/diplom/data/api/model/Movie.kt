@@ -12,7 +12,7 @@ data class Movie(
     @SerializedName("backdrop_path") val backdropPath: String, // /iQFcwSGbZXMkeyKrxbPnwnRo5fl.jpg
     @SerializedName("vote_average") val rating: Double, // 8.4
     @SerializedName("release_date") val releaseDate: String, // 2021-12-15
-    @SerializedName("isFavorite") var isFavorite: Boolean = false, // 2021-12-15
+    @SerializedName("isFavorite") var isFavorite: Boolean = false,
 
 )
 

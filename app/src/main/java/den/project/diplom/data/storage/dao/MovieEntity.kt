@@ -1,4 +1,4 @@
-package den.project.diplom.data.storage.entity
+package den.project.diplom.data.storage.dao
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
