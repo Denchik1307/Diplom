@@ -25,7 +25,8 @@ fun MovieEntity.toMovie() = Movie(
     originalTitle = originalTitle,
     backdropPath = backdropPath,
     rating = rating,
-    releaseDate = releaseDate
+    releaseDate = releaseDate,
+    isFavorite = true
 )
 
 private fun stringToListInt(value: String): List<Int> {
