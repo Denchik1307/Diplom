@@ -22,7 +22,6 @@ import den.project.diplom.presentation.movielist.adapters.movieadapter.ItemMovie
 import den.project.diplom.presentation.movielist.adapters.movieadapter.MovieAdapter
 import den.project.diplom.presentation.movielist.viewmodel.MovieViewModel
 import den.project.diplom.utils.Constants
-import den.project.diplom.utils.Constants.MAX_PAGE
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -35,7 +34,8 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
     private val binding by viewBinding(vbFactory = FragmentMovieListBinding::bind)
     private val viewModel: MovieViewModel by viewModels()
     private var isInit = false
-    private var page: Int = 1
+    private var pagePopular: Int = 1
+    private var pageSearch: Int = 1
     private val itemMovieListener: ItemMovieListener = object : ItemMovieListener {
         override fun idClickListener(id: String) {
             Log.d("MOVIE", id)
@@ -48,8 +48,7 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
 
         override fun onMoviesClickListener(id: String) {
 //            viewModel.getMovieDetail(movie_id = id, "ru")
-            view?.findNavController()?.navigate(R.id.singleMovieFragment,id as Bundle)
-
+            view?.findNavController()?.navigate(R.id.singleMovieFragment, id as Bundle)
         }
     }
 
@@ -67,9 +66,9 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
             val recycler = recyclerView.layoutManager as GridLayoutManager
             val lastItemCount = recycler.findLastCompletelyVisibleItemPosition()
             val itemCount = recycler.itemCount
-            if (itemCount <= lastItemCount + 1 && page != MAX_PAGE) {
-                page++
-                viewModel.getPopular(page = page, language = "ru")
+            if (itemCount <= lastItemCount + 1 && pagePopular != Constants.MAX_PAGE) {
+                pagePopular++
+                viewModel.getPopular(page = pagePopular, language = "ru")
             }
         }
     }
@@ -82,7 +81,7 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
                 movieAdapter.showMovie(movie = it)
             }
         }
-        viewModel.getPopular(page = page, language = "ru")
+        viewModel.getPopular(page = pagePopular, language = "ru")
         initYoutubeObserver()
     }
 
@@ -99,8 +98,10 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
             if (it != "empty") {
                 val intentOne =
                     Intent(Intent.ACTION_VIEW, Uri.parse(Constants.BASE_PATH_TRAILER + it))
-                val intentTwo = Intent(Intent.CATEGORY_APP_BROWSER,
-                    Uri.parse(Constants.BASE_PATH_TRAILER2 + it))
+                val intentTwo = Intent(
+                    Intent.CATEGORY_APP_BROWSER,
+                    Uri.parse(Constants.BASE_PATH_TRAILER2 + it)
+                )
                 try {
                     requireActivity().startActivity(intentOne)
                 } catch (ex: ActivityNotFoundException) {
@@ -108,9 +109,11 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
                 }
             } else {
                 if (isInit) {
-                    Toast.makeText(requireContext(),
+                    Toast.makeText(
+                        requireContext(),
                         "Нет ссылки на рейлер для этого фильма :(",
-                        Toast.LENGTH_LONG).show()
+                        Toast.LENGTH_LONG
+                    ).show()
                 } else {
                     isInit = true
                 }

@@ -10,6 +10,7 @@ interface SearchAPI {
     @GET("search/movie")
     suspend fun getSearchMovie(
         @Query("api_key") api_key: String,
+        @Query("page") page: String,
         @Query("query") query: String,
         @Query("language") language: String
     ): Response<MovieResponse>

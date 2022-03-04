@@ -10,6 +10,7 @@ import den.project.diplom.data.api.model.response.MovieDetail
 import den.project.diplom.domain.GetDetailMoviesUseCase
 import den.project.diplom.domain.GetPopularMoviesUseCase
 import den.project.diplom.domain.GetTrailerMoviesUseCase
+import den.project.diplom.domain.SearchMovieUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,6 +24,7 @@ class MovieViewModel @Inject constructor(
     private val getDetailMoviesUseCase: GetDetailMoviesUseCase,
     private val getPopularMoviesUseCase: GetPopularMoviesUseCase,
     private val getTrailerMoviesUseCase: GetTrailerMoviesUseCase,
+    private val searchMovieUseCase: SearchMovieUseCase,
 ) : ViewModel() {
 
     private val _detailMovie = MutableStateFlow<List<MovieDetail>>(value = listOf())
@@ -43,6 +45,13 @@ class MovieViewModel @Inject constructor(
             _listMovies.value = it
         }
     }
+
+    fun searchMovie(page: String, name: String, language: String) =
+        viewModelScope.launch(Dispatchers.IO) {
+            searchMovieUseCase(page = page, name = name, language = language).collect {
+                _listMovies.value = it
+            }
+        }
 
     fun getTrailer(movie_id: String) {
         viewModelScope.launch(Dispatchers.Main) {
