@@ -1,4 +1,4 @@
-package den.project.diplom.presentation.movielist.moviefragment
+package den.project.diplom.presentation.movielist.fragments
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
@@ -6,11 +6,14 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.AbsListView
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.AnimBuilder
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,8 +25,11 @@ import den.project.diplom.presentation.movielist.adapters.movieadapter.ItemMovie
 import den.project.diplom.presentation.movielist.adapters.movieadapter.MovieAdapter
 import den.project.diplom.presentation.movielist.viewmodel.MovieViewModel
 import den.project.diplom.utils.Constants
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlin.math.absoluteValue
+import kotlin.math.sign
 
 @AndroidEntryPoint
 class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
@@ -34,6 +40,7 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
     private val binding by viewBinding(vbFactory = FragmentMovieListBinding::bind)
     private val viewModel: MovieViewModel by viewModels()
     private var isInit = false
+    private var isSearch = false
     private var pagePopular: Int = 1
     private var pageSearch: Int = 1
     private val itemMovieListener: ItemMovieListener = object : ItemMovieListener {
@@ -47,13 +54,24 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
         }
 
         override fun onMoviesClickListener(id: String) {
-//            viewModel.getMovieDetail(movie_id = id, "ru")
-            view?.findNavController()?.navigate(R.id.singleMovieFragment, id as Bundle)
+            val bundle = Bundle()
+            bundle.putString("movie",id)
+            view?.findNavController()?.navigate(R.id.singleMovieFragment, bundle)
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        showPopularMovie()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        binding.container.startAnimation(AnimationUtils.loadAnimation(requireContext(),R.anim.scale))
+    }
+
     private var isScrolling = false
-    val scrollListener = object : RecyclerView.OnScrollListener() {
+    private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
             if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
@@ -64,25 +82,61 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
             val recycler = recyclerView.layoutManager as GridLayoutManager
-            val lastItemCount = recycler.findLastCompletelyVisibleItemPosition()
+            val lastCompleteItemCount = recycler.findLastCompletelyVisibleItemPosition()
+            val lastVisibleItemCount = recycler.findLastVisibleItemPosition()
+            val firstCompleteItemCount = recycler.findFirstCompletelyVisibleItemPosition()
+            val firstVisibleItemCount = recycler.findFirstVisibleItemPosition()
+            val spanCount = recycler.spanCount
+            val baseline = recycler.baseline
+            val childCount = recycler.childCount
+            val initialPrefetchItemCount = recycler.initialPrefetchItemCount
+            val dxAbsolute = dx.absoluteValue
+            val dxSign = dx.sign
             val itemCount = recycler.itemCount
-            if (itemCount <= lastItemCount + 1 && pagePopular != Constants.MAX_PAGE) {
+            if (itemCount <= lastCompleteItemCount + 1 && pagePopular != Constants.MAX_PAGE && !isSearch) {
+
                 pagePopular++
-                viewModel.getPopular(page = pagePopular, language = "ru")
+                showPopularMovie()
+                recycler.scrollToPosition(1)
             }
+            showLogTagMovie(lastCompleteItemCount,"lastCompleteItemCount")
+            showLogTagMovie(lastVisibleItemCount,"lastVisibleItemCount")
+            showLogTagMovie(firstCompleteItemCount,"firstCompleteItemCount")
+            showLogTagMovie(firstVisibleItemCount,"firstVisibleItemCount")
+            showLogTagMovie(spanCount,"spanCount")
+            showLogTagMovie(pagePopular,"pagePopular")
+            showLogTagMovie(baseline,"baseline")
+            showLogTagMovie(childCount,"childCount")
+            showLogTagMovie(initialPrefetchItemCount,"initialPrefetchItemCount")
+            showLogTagMovie(itemCount,"itemCount")
+            showLogTagMovie(dxAbsolute,"dxAbsolute")
+            showLogTagMovie(dxSign,"dxSign")
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecycler()
+        initYoutubeObserver()
         lifecycleScope.launch {
             viewModel.listMovie.collect {
                 movieAdapter.showMovie(movie = it)
             }
         }
+        binding.searchMovie.addTextChangedListener { searchText ->
+            if (searchText!!.length >= 3) {
+                lifecycleScope.launch {
+                    delay(500L)
+                    viewModel.searchMovie(pageSearch.toString(), searchText.toString(), "ru")
+                }
+            }
+            if (searchText.isEmpty()){
+                pagePopular = 1
+                showPopularMovie()
+            }
+        }
         viewModel.getPopular(page = pagePopular, language = "ru")
-        initYoutubeObserver()
+
     }
 
     private fun initRecycler() {
@@ -109,15 +163,22 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
                 }
             } else {
                 if (isInit) {
-                    Toast.makeText(
-                        requireContext(),
+                    Toast.makeText(requireContext(),
                         "Нет ссылки на рейлер для этого фильма :(",
-                        Toast.LENGTH_LONG
-                    ).show()
+                        Toast.LENGTH_LONG).show()
                 } else {
                     isInit = true
                 }
             }
         }
     }
+
+    private fun showPopularMovie() {
+        viewModel.getPopular(page = pagePopular, language = "ru")
+    }
+
+    private fun showLogTagMovie(value:Any,name:String){
+        Log.d("MOVIE", "$value - $name")
+    }
+
 }

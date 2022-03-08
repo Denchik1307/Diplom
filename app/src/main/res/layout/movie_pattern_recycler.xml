@@ -20,14 +20,13 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/test_image" />
 
-
     <ImageView
         android:id="@+id/imMoviePoster"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="8dp"
         android:layout_marginTop="4dp"
-        android:src="@drawable/test_image"
+        tools:src="@drawable/test_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_max="300dp"
         app:layout_constraintHorizontal_bias="1.0"

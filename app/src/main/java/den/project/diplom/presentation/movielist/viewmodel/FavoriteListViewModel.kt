@@ -1,4 +1,4 @@
-package den.project.diplom.presentation.movielist.favoritefragment
+package den.project.diplom.presentation.movielist.viewmodel
 
 import androidx.lifecycle.ViewModel
 

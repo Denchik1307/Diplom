@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
     tools:context=".presentation.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
@@ -24,7 +25,6 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:alpha="0.8"
-        android:background="@drawable/background_gradient"
         app:itemIconTint="@drawable/bottom_menu_selector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

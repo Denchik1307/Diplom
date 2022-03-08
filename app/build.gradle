@@ -67,7 +67,6 @@ dependencies {
     api 'com.google.dagger:dagger-android-support:2.40.5'
     kapt 'com.google.dagger:dagger-android-processor:2.40.5'
 
-
     //Dagger HILT
     implementation "com.google.dagger:hilt-android:2.40.5"
     kapt "com.google.dagger:hilt-compiler:2.40.5"

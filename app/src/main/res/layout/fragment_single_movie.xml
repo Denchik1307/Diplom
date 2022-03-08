@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,118 +7,124 @@
     android:padding="5dp"
     android:background="@drawable/shape_eight_corner"
     tools:background="@drawable/background_gradient"
-    tools:context=".presentation.movielist.singlemovie.SingleMovieFragment">
+    tools:context=".presentation.movielist.fragments.SingleMovieFragment">
 
-    <ImageView
-        android:id="@+id/im_background_poster"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:alpha="0.3"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/test_image" />
-
-
-    <ImageView
-        android:id="@+id/imMoviePoster"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
-        android:layout_marginTop="4dp"
-        android:src="@drawable/test_image"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_max="350dp"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tvTitleMovie"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
-        android:textColor="@color/title_color"
-        android:textSize="12sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintEnd_toEndOf="@id/imMoviePoster"
-        app:layout_constraintStart_toStartOf="@id/imMoviePoster"
-        app:layout_constraintTop_toBottomOf="@+id/imMoviePoster"
-        tools:text="Spider man" />
+        <ImageView
+            android:id="@+id/im_background_poster"
+            android:contentDescription="@string/poster"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0.3"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/test_image" />
 
-    <TextView
-        android:id="@+id/tvDateMovieRelease"
-        android:layout_width="0dp"
-        app:layout_constraintEnd_toEndOf="@id/tvTitleMovie"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:textStyle="bold"
-        android:textSize="12sp"
-        android:textColor="@color/oder_text_color"
-        app:layout_constraintStart_toStartOf="@+id/tvTitleMovie"
-        app:layout_constraintTop_toTopOf="@+id/tvTitleMovie"
-        tools:text="Date release" />
+        <ImageView
+            android:id="@+id/imMoviePoster"
+            android:contentDescription="@string/poster"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_max="350dp"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/test_image" />
 
-    <TextView
-        android:id="@+id/tvGenreMovie"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:textStyle="bold"
-        android:textSize="10sp"
-        android:textColor="?android:attr/colorFocusedHighlight"
-        app:layout_constraintEnd_toEndOf="@id/tvTitleMovie"
-        app:layout_constraintStart_toStartOf="@+id/tvTitleMovie"
-        app:layout_constraintTop_toTopOf="@+id/tvDateMovieRelease"
-        tools:text="Genre"
-        tools:ignore="SmallSp" />
+        <TextView
+            android:id="@+id/tvTitleMovie"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:textColor="@color/title_color"
+            android:textSize="18sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintEnd_toEndOf="@id/imMoviePoster"
+            app:layout_constraintStart_toStartOf="@id/imMoviePoster"
+            app:layout_constraintTop_toBottomOf="@+id/imMoviePoster"
+            tools:text="Spider man" />
 
-    <TextView
-        android:id="@+id/tvOverview"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:breakStrategy="simple"
-        android:ellipsize="end"
-        android:textSize="12sp"
-        android:textColor="@color/white"
-        android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="@id/tvTitleMovie"
-        app:layout_constraintStart_toStartOf="@+id/tvTitleMovie"
-        app:layout_constraintTop_toTopOf="@+id/tvGenreMovie"
-        tools:text="Действие фильма «Человек-паук: Нет пути домой» начинает своё развитие в тот момент, когда Мистерио удаётся выяснить истинную личность Человека-паука. С этого момента жизнь Питера Паркера становится невыносимой. Если ранее он мог успешно переключаться между своими амплуа, то сейчас это сделать невозможно. Переворачивается с ног на голову не только жизнь Человека-пауку, но и репутация. Понимая, что так жить невозможно, главный герой фильма «Человек-паук: Нет пути домой» принимает решение обратиться за помощью к своему давнему знакомому Стивену Стрэнджу. Питер Паркер надеется, что с помощью магии он сможет восстановить его анонимность. Стрэндж соглашается помочь." />
+        <TextView
+            android:id="@+id/tvDateMovieRelease"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/oder_text_color"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/tvTitleMovie"
+            app:layout_constraintStart_toStartOf="@+id/tvTitleMovie"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitleMovie"
+            tools:text="Date release" />
 
-    <TextView
-        android:id="@+id/tvPopularityMovie"
-        android:layout_width="@dimen/popularity_size"
-        android:layout_height="@dimen/popularity_size"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/round_popularity_background"
-        android:gravity="center"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@id/imMoviePoster"
-        app:layout_constraintTop_toTopOf="@id/imMoviePoster"
-        tools:text="8.4" />
+        <TextView
+            android:id="@+id/tvGenreMovie"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="?android:attr/colorFocusedHighlight"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/tvTitleMovie"
+            app:layout_constraintStart_toStartOf="@+id/tvTitleMovie"
+            app:layout_constraintTop_toBottomOf="@+id/tvDateMovieRelease"
+            tools:ignore="SmallSp"
+            tools:text="Genre" />
 
-    <ImageView
-        android:id="@+id/imTrailer"
-        android:layout_width="@dimen/popularity_size"
-        android:layout_height="@dimen/popularity_size"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/round_trailer_background"
-        android:gravity="center"
-        android:src="@drawable/ic_play_arrow"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/tvPopularityMovie"
-        app:layout_constraintEnd_toEndOf="@id/imMoviePoster"
-        tools:text="8.4" />
+        <TextView
+            android:id="@+id/tvOverview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:breakStrategy="simple"
+            android:ellipsize="end"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="@id/tvTitleMovie"
+            app:layout_constraintStart_toStartOf="@+id/tvTitleMovie"
+            app:layout_constraintTop_toBottomOf="@+id/tvGenreMovie"
+            tools:text="Действие фильма «Человек-паук: Нет пути домой» начинает своё развитие в тот момент, когда Мистерио удаётся выяснить истинную личность Человека-паука. С этого момента жизнь Питера Паркера становится невыносимой. Если ранее он мог успешно переключаться между своими амплуа, то сейчас это сделать невозможно. Переворачивается с ног на голову не только жизнь Человека-пауку, но и репутация. Понимая, что так жить невозможно, главный герой фильма «Человек-паук: Нет пути домой» принимает решение обратиться за помощью к своему давнему знакомому Стивену Стрэнджу. Питер Паркер надеется, что с помощью магии он сможет восстановить его анонимность. Стрэндж соглашается помочь. Действие фильма «Человек-паук: Нет пути домой» начинает своё развитие в тот момент, когда Мистерио удаётся выяснить истинную личность Человека-паука. С этого момента жизнь Питера Паркера становится невыносимой. Если ранее он мог успешно переключаться между своими амплуа, то сейчас это сделать невозможно. Переворачивается с ног на голову не только жизнь Человека-пауку, но и репутация. Понимая, что так жить невозможно, главный герой фильма «Человек-паук: Нет пути домой» принимает решение обратиться за помощью к своему давнему знакомому Стивену Стрэнджу. Питер Паркер надеется, что с помощью магии он сможет восстановить его анонимность. Стрэндж соглашается помочь." />
 
+        <TextView
+            android:id="@+id/tvPopularityMovie"
+            android:layout_width="@dimen/popularity_size"
+            android:layout_height="@dimen/popularity_size"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/round_popularity_background"
+            android:gravity="center"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@id/imMoviePoster"
+            app:layout_constraintTop_toTopOf="@id/imMoviePoster"
+            tools:ignore="TextContrastCheck"
+            tools:text="8.4" />
 
+        <ImageView
+            android:id="@+id/imTrailer"
+            android:contentDescription="@string/trailer_movie"
+            android:layout_width="@dimen/popularity_size"
+            android:layout_height="@dimen/popularity_size"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/round_trailer_background"
+            android:gravity="center"
+            android:src="@drawable/ic_play_arrow"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@id/imMoviePoster"
+            app:layout_constraintTop_toBottomOf="@id/tvPopularityMovie"
+            tools:text="8.4"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

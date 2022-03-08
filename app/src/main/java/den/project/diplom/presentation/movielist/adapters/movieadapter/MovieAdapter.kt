@@ -33,7 +33,7 @@ class MovieAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun showMovie(movie: List<Movie>) {
-        listMovie.addAll(movie)
+        listMovie = movie.toMutableList()
         notifyDataSetChanged()
     }
 }

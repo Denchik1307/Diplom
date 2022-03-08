@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Movie IMDB</string>
+    <string name="trailer_movie">Trailer movie</string>
+    <string name="poster">poster</string>
 </resources>

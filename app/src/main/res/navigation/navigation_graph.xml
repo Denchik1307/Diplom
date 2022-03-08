@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/movieListFragment"
-        android:name="den.project.diplom.presentation.movielist.moviefragment.MovieListFragment"
+        android:name="den.project.diplom.presentation.movielist.fragments.MovieListFragment"
         android:label="fragment_movie_list"
         tools:layout="@layout/fragment_movie_list" />
     <fragment
         android:id="@+id/favoriteListFragment"
-        android:name="den.project.diplom.presentation.movielist.favoritefragment.FavoriteListFragment"
+        android:name="den.project.diplom.presentation.movielist.fragments.FavoriteListFragment"
         android:label="favorite_movie_fragment"
         tools:layout="@layout/fragment_movie_favorite" />
     <fragment
         android:id="@+id/singleMovieFragment"
-        android:name="den.project.diplom.presentation.movielist.singlemovie.SingleMovieFragment"
+        android:name="den.project.diplom.presentation.movielist.fragments.SingleMovieFragment"
         android:label="fragment_single_movie"
         tools:layout="@layout/fragment_single_movie" >
         <argument android:name="movieArgs"
