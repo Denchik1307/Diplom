@@ -13,7 +13,6 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.AnimBuilder
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -177,8 +176,8 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
         viewModel.getPopular(page = pagePopular, language = "ru")
     }
 
-    private fun showLogTagMovie(value:Any,name:String){
-        Log.d("MOVIE", "$value - $name")
+    private fun showLogTagMovie(msg:Any, name:String){
+        Log.d("MOVIE", "$msg - $name")
     }
 
 }

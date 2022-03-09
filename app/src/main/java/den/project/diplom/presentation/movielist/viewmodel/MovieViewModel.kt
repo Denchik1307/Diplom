@@ -12,6 +12,7 @@ import den.project.diplom.domain.GetPopularMoviesUseCase
 import den.project.diplom.domain.GetTrailerMoviesUseCase
 import den.project.diplom.domain.SearchMovieUseCase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
