@@ -6,8 +6,9 @@ import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import den.project.diplom.utils.Permission.Companion.REQUEST_PERMISSION_CODE
+import javax.inject.Inject
 
-class PermissionImpl : Permission {
+class PermissionImpl @Inject constructor(): Permission {
 
     override fun requestPermission(activity: Activity) {
         ActivityCompat.requestPermissions(activity,
@@ -16,7 +17,7 @@ class PermissionImpl : Permission {
     }
 
     override fun isPermissionGranted(activity: Activity): Boolean {
-        return !(internetStatus(activity) || wifiStatus(activity))
+        return internetStatus(activity) || wifiStatus(activity)
     }
 
     private fun internetStatus(activity: Activity): Boolean {

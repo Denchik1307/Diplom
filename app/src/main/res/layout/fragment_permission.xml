@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.movielist.fragments.PermissionFragment"
-    android:background="@drawable/background_gradient">
+    android:background="@drawable/background_gradient"
+    tools:context=".presentation.movielist.fragments.PermissionFragment">
 
     <TextView
         android:id="@+id/tvPermission"
@@ -14,11 +14,21 @@
         android:layout_margin="38dp"
         android:fontFamily="cursive"
         android:gravity="center"
+        android:text="For work application need access permission"
         android:textColor="@color/light_green"
         android:textSize="42sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="For work application need access permission" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/bvGetPermission"
+        android:layout_width="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        android:text="Get Permission"
+        app:layout_constraintTop_toBottomOf="@id/tvPermission"
+        android:layout_height="wrap_content"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
