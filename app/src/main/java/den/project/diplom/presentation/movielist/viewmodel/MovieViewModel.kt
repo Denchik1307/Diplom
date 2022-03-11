@@ -71,4 +71,8 @@ class MovieViewModel @Inject constructor(
             }
         }
     }
+
+    fun initTrailerViewModel(){
+        _trailer.value = "empty"
+    }
 }

@@ -4,7 +4,6 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.AbsListView
@@ -24,6 +23,8 @@ import den.project.diplom.presentation.movielist.adapters.movieadapter.ItemMovie
 import den.project.diplom.presentation.movielist.adapters.movieadapter.MovieAdapter
 import den.project.diplom.presentation.movielist.viewmodel.MovieViewModel
 import den.project.diplom.utils.Constants
+import den.project.diplom.utils.Loging.isLoging
+import den.project.diplom.utils.Loging.showLogTagMovie
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -44,7 +45,7 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
     private var pageSearch: Int = 1
     private val itemMovieListener: ItemMovieListener = object : ItemMovieListener {
         override fun idClickListener(id: String) {
-            Log.d("MOVIE", id)
+            showLogTagMovie("MOVIE", id)
             viewModel.getTrailer(id)
         }
 
@@ -61,6 +62,7 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel.initTrailerViewModel()
         showPopularMovie()
     }
 
@@ -98,18 +100,20 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
                 showPopularMovie()
                 recycler.scrollToPosition(1)
             }
-            showLogTagMovie(lastCompleteItemCount,"lastCompleteItemCount")
-            showLogTagMovie(lastVisibleItemCount,"lastVisibleItemCount")
-            showLogTagMovie(firstCompleteItemCount,"firstCompleteItemCount")
-            showLogTagMovie(firstVisibleItemCount,"firstVisibleItemCount")
-            showLogTagMovie(spanCount,"spanCount")
-            showLogTagMovie(pagePopular,"pagePopular")
-            showLogTagMovie(baseline,"baseline")
-            showLogTagMovie(childCount,"childCount")
-            showLogTagMovie(initialPrefetchItemCount,"initialPrefetchItemCount")
-            showLogTagMovie(itemCount,"itemCount")
-            showLogTagMovie(dxAbsolute,"dxAbsolute")
-            showLogTagMovie(dxSign,"dxSign")
+            if (isLoging) {
+                showLogTagMovie(lastCompleteItemCount, "lastCompleteItemCount")
+                showLogTagMovie(lastVisibleItemCount, "lastVisibleItemCount")
+                showLogTagMovie(firstCompleteItemCount, "firstCompleteItemCount")
+                showLogTagMovie(firstVisibleItemCount, "firstVisibleItemCount")
+                showLogTagMovie(spanCount, "spanCount")
+                showLogTagMovie(pagePopular, "pagePopular")
+                showLogTagMovie(baseline, "baseline")
+                showLogTagMovie(childCount, "childCount")
+                showLogTagMovie(initialPrefetchItemCount, "initialPrefetchItemCount")
+                showLogTagMovie(itemCount, "itemCount")
+                showLogTagMovie(dxAbsolute, "dxAbsolute")
+                showLogTagMovie(dxSign, "dxSign")
+            }
         }
     }
 
@@ -174,10 +178,6 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
 
     private fun showPopularMovie() {
         viewModel.getPopular(page = pagePopular, language = "ru")
-    }
-
-    private fun showLogTagMovie(msg:Any, name:String){
-        Log.d("MOVIE", "$msg - $name")
     }
 
 }
