@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.AbsListView
@@ -12,7 +13,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -23,8 +24,8 @@ import den.project.diplom.presentation.movielist.adapters.movieadapter.ItemMovie
 import den.project.diplom.presentation.movielist.adapters.movieadapter.MovieAdapter
 import den.project.diplom.presentation.movielist.viewmodel.MovieViewModel
 import den.project.diplom.utils.Constants
-import den.project.diplom.utils.Loging.isLoging
-import den.project.diplom.utils.Loging.showLogTagMovie
+import den.project.diplom.utils.Logging.isLogging
+import den.project.diplom.utils.Logging.showLogTagMovie
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -55,8 +56,8 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
 
         override fun onMoviesClickListener(id: String) {
             val bundle = Bundle()
-            bundle.putString("movie",id)
-            view?.findNavController()?.navigate(R.id.singleMovieFragment, bundle)
+            bundle.putString("movie", id)
+            findNavController().navigate(R.id.singleMovieFragment, bundle)
         }
     }
 
@@ -68,7 +69,6 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
 
     override fun onStart() {
         super.onStart()
-        binding.container.startAnimation(AnimationUtils.loadAnimation(requireContext(),R.anim.scale))
     }
 
     private var isScrolling = false
@@ -100,7 +100,7 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
                 showPopularMovie()
                 recycler.scrollToPosition(1)
             }
-            if (isLoging) {
+            if (isLogging) {
                 showLogTagMovie(lastCompleteItemCount, "lastCompleteItemCount")
                 showLogTagMovie(lastVisibleItemCount, "lastVisibleItemCount")
                 showLogTagMovie(firstCompleteItemCount, "firstCompleteItemCount")
@@ -126,19 +126,34 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
                 movieAdapter.showMovie(movie = it)
             }
         }
-        binding.searchMovie.addTextChangedListener { searchText ->
-            if (searchText!!.length >= 3) {
-                lifecycleScope.launch {
-                    delay(500L)
-                    viewModel.searchMovie(pageSearch.toString(), searchText.toString(), "ru")
+        with(binding) {
+            if (searchMovie.isSelected){
+                searchMovie.width = 150
+                Log.d("MOVIE","hi")
+            }else{
+                searchMovie.width = 200
+                Log.d("MOVIE","hi")
+            }
+            searchMovie.addTextChangedListener { searchText ->
+                if (searchText!!.length >= 3) {
+                    lifecycleScope.launch {
+                        delay(500L)
+                        viewModel.searchMovie(pageSearch.toString(), searchText.toString(), "ru")
+                    }
+                }
+                if (searchText.isEmpty()) {
+                    pagePopular = 1
+                    showPopularMovie()
                 }
             }
-            if (searchText.isEmpty()){
-                pagePopular = 1
-                showPopularMovie()
-            }
+            viewModel.getPopular(page = pagePopular, language = "ru")
+            binding.container.startAnimation(
+                AnimationUtils.loadAnimation(
+                    requireContext(),
+                    R.anim.scale
+                )
+            )
         }
-        viewModel.getPopular(page = pagePopular, language = "ru")
 
     }
 
@@ -166,9 +181,11 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
                 }
             } else {
                 if (isInit) {
-                    Toast.makeText(requireContext(),
+                    Toast.makeText(
+                        requireContext(),
                         "Нет ссылки на рейлер для этого фильма :(",
-                        Toast.LENGTH_LONG).show()
+                        Toast.LENGTH_LONG
+                    ).show()
                 } else {
                     isInit = true
                 }

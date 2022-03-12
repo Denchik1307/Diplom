@@ -5,11 +5,11 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:background="@drawable/background_gradient"
+    android:orientation="vertical"
     tools:context=".presentation.movielist.fragments.MovieListFragment">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,15 +20,21 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_margin="5dp"
-            android:background="@drawable/ic_search" />
+            android:textColor="@color/light_green"
+            android:background="@drawable/ic_search"
+            app:layout_constraintEnd_toStartOf="@id/filterMovie"
+            app:layout_constraintTop_toTopOf="@id/layout" />
 
         <ImageView
-            android:layout_margin="5dp"
             android:id="@+id/filterMovie"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/ic_filter_movie" />
-    </LinearLayout>
+            android:layout_margin="5dp"
+            android:src="@drawable/ic_filter_movie"
+            app:layout_constraintEnd_toEndOf="@id/layout"
+            app:layout_constraintTop_toTopOf="@id/layout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerMovieList"

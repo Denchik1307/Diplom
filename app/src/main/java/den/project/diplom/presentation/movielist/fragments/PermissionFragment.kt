@@ -9,8 +9,8 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import den.project.diplom.R
 import den.project.diplom.databinding.FragmentPermissionBinding
-import den.project.diplom.utils.Loging.isLoging
-import den.project.diplom.utils.Loging.showLogTagMovie
+import den.project.diplom.utils.Logging.isLogging
+import den.project.diplom.utils.Logging.showLogTagMovie
 import den.project.diplom.utils.Permission
 import javax.inject.Inject
 
@@ -21,17 +21,17 @@ class PermissionFragment : Fragment(R.layout.fragment_permission) {
 
     @Inject
     lateinit var permission: Permission
-    private val action by lazy {
-        DialogInterface.OnClickListener { i1, i2 ->
+    private val dialogPermission by lazy {
+        DialogInterface.OnClickListener { _, _ ->
             if (!permission.isPermissionGranted(requireActivity())) {
                 permission.requestPermission(requireActivity())
-                if (isLoging) {
+                if (isLogging) {
                     showLogTagMovie("MOVIE", "entry")
                 }
             } else {
                 binding.tvPermission.text = "good"
-                if (isLoging) {
-                    showLogTagMovie("MOVIE", "$i1 good $i2")
+                if (isLogging) {
+                    showLogTagMovie("MOVIE", "good")
                 }
             }
         }
@@ -39,19 +39,19 @@ class PermissionFragment : Fragment(R.layout.fragment_permission) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        createDialog(action = action).show()
+        createDialog(dialog = dialogPermission).show()
     }
 
     private fun chekPermission() {
 
     }
 
-    private fun createDialog(action: DialogInterface.OnClickListener) =
+    private fun createDialog(dialog: DialogInterface.OnClickListener) =
         AlertDialog.Builder(requireContext())
             .setIcon(R.drawable.ic_alert)
             .setTitle("123")
             .setMessage("456")
-            .setPositiveButton("ok", action)
+            .setPositiveButton("ok", dialog)
             .setCancelable(false)
             .create()
 
