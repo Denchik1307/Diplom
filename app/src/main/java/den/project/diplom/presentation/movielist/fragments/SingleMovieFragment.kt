@@ -40,16 +40,26 @@ class SingleMovieFragment : Fragment(R.layout.fragment_single_movie) {
             movieViewModel.detailMovie.collect { movie ->
                 movie.forEach { movieDetail ->
                     with(binding) {
-                        container.startAnimation(AnimationUtils.loadAnimation(requireContext(),R.anim.scale))
+                        container.startAnimation(
+                            AnimationUtils.loadAnimation(
+                                requireContext(),
+                                R.anim.scale
+                            )
+                        )
                         tvTitleMovie.text = movieDetail.title
                         tvDateMovieRelease.text = movieDetail.releaseDate
-                        tvGenreMovie.text = movieDetail.genres.map { it.name }.toString()
+                        tvGenreMovie.text = movieDetail.genres
+                                .map { " " + it.name }
+                                .toString()
+                                .removePrefix("[")
+                                .removeSuffix("]")
                         Glide.with(requireContext())
                             .load(BASE_PATH_POSTER + movieDetail.backdropPath)
                             .into(imBackgroundPoster)
-                        Glide.with(requireContext()).load(BASE_PATH_POSTER + movieDetail.posterPath)
+                        Glide.with(requireContext())
+                            .load(BASE_PATH_POSTER + movieDetail.posterPath)
                             .into(imMoviePoster)
-                        tvOverview.text = "\t\t"+movieDetail.overview.replace(". ","\n\t\t")
+                        tvOverview.text = "\t\t" + movieDetail.overview.replace(". ", "\n\t\t")
                         tvPopularityMovie.text = movieDetail.rating.toString()
                     }
                 }

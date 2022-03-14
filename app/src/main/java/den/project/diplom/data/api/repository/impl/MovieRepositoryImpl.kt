@@ -11,7 +11,16 @@ class MovieRepositoryImpl(
     private val movieApi: MovieAPI
 ) : MovieRepository {
     override suspend fun getPopular(page: Int, language: String): List<Movie> {
-        val movies = movieApi.getPopularMovie(Constants.API_KEY_MOVIE, page, language)
+        val movies = movieApi.getPopular(Constants.API_KEY_MOVIE, page, language)
+        if (movies.isSuccessful) {
+            return movies.body()!!.results
+        } else {
+            throw Error(movies.errorBody().toString())
+        }
+    }
+
+    override suspend fun getTopRated(page: Int, language: String): List<Movie> {
+        val movies = movieApi.getTopRated(Constants.API_KEY_MOVIE, page, language)
         if (movies.isSuccessful) {
             return movies.body()!!.results
         } else {

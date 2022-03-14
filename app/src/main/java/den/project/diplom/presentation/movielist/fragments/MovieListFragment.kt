@@ -60,17 +60,6 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
             findNavController().navigate(R.id.singleMovieFragment, bundle)
         }
     }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.initTrailerViewModel()
-        showPopularMovie()
-    }
-
-    override fun onStart() {
-        super.onStart()
-    }
-
     private var isScrolling = false
     private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -117,22 +106,36 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        isInit = false
+        viewModel.initTrailerViewModel()
+        showPopularMovie()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecycler()
         initYoutubeObserver()
         lifecycleScope.launch {
-            viewModel.listMovie.collect {
+            viewModel.listTopRatedMovie.collect {
                 movieAdapter.showMovie(movie = it)
             }
         }
         with(binding) {
-            if (searchMovie.isSelected){
-                searchMovie.width = 150
-                Log.d("MOVIE","hi")
+            if (searchMovie.isInLayout){
+                Log.d("MOVIE",searchMovie.isCursorVisible.toString())
+                Log.d("MOVIE",searchMovie.isActivated.toString())
+                Log.d("MOVIE",searchMovie.isEnabled.toString())
+                Log.d("MOVIE",searchMovie.isFocused.toString())
+                searchMovie.height = 150
             }else{
                 searchMovie.width = 200
-                Log.d("MOVIE","hi")
+                Log.d("MOVIE",searchMovie.isCursorVisible.toString())
+                Log.d("MOVIE",searchMovie.isActivated.toString())
+                Log.d("MOVIE",searchMovie.isEnabled.toString())
+                Log.d("MOVIE",searchMovie.isFocused.toString())
+                Log.d("MOVIE","low")
             }
             searchMovie.addTextChangedListener { searchText ->
                 if (searchText!!.length >= 3) {
@@ -146,7 +149,7 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
                     showPopularMovie()
                 }
             }
-            viewModel.getPopular(page = pagePopular, language = "ru")
+            showPopularMovie()
             binding.container.startAnimation(
                 AnimationUtils.loadAnimation(
                     requireContext(),
@@ -194,7 +197,7 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
     }
 
     private fun showPopularMovie() {
-        viewModel.getPopular(page = pagePopular, language = "ru")
+        viewModel.getTopRated(page = pagePopular, language = "ru")
     }
 
 }

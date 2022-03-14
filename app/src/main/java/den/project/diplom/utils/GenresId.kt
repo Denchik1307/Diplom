@@ -34,6 +34,6 @@ object GenresId {
             10770 -> genre = "телевизионный фильм"
             else -> genre = "хз что за жанр"
         }
-        return "$genre;"
+        return "$genre; "
     }
 }

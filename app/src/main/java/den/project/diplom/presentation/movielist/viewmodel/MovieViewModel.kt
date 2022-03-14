@@ -7,12 +7,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import den.project.diplom.data.api.model.Movie
 import den.project.diplom.data.api.model.response.MovieDetail
-import den.project.diplom.domain.GetDetailMoviesUseCase
-import den.project.diplom.domain.GetPopularMoviesUseCase
-import den.project.diplom.domain.GetTrailerMoviesUseCase
-import den.project.diplom.domain.SearchMovieUseCase
+import den.project.diplom.domain.*
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -24,15 +20,18 @@ import javax.inject.Inject
 class MovieViewModel @Inject constructor(
     private val getDetailMoviesUseCase: GetDetailMoviesUseCase,
     private val getPopularMoviesUseCase: GetPopularMoviesUseCase,
+    private val getTopRatedMoviesUseCase: GetTopRatedMoviesUseCase,
     private val getTrailerMoviesUseCase: GetTrailerMoviesUseCase,
     private val searchMovieUseCase: SearchMovieUseCase,
 ) : ViewModel() {
 
     private val _detailMovie = MutableStateFlow<List<MovieDetail>>(value = listOf())
-    private val _listMovies = MutableStateFlow<List<Movie>>(value = listOf())
+    private val _listPopularMovies = MutableStateFlow<List<Movie>>(value = listOf())
+    private val _listTopRatedMovies = MutableStateFlow<List<Movie>>(value = listOf())
     private val _trailer = MutableLiveData("empty")
     val detailMovie: StateFlow<List<MovieDetail>> = _detailMovie.asStateFlow()
-    val listMovie: StateFlow<List<Movie>> = _listMovies.asStateFlow()
+    val listPopularMovie: StateFlow<List<Movie>> = _listPopularMovies.asStateFlow()
+    val listTopRatedMovie: StateFlow<List<Movie>> = _listTopRatedMovies.asStateFlow()
     val trailer: LiveData<String> = _trailer
 
     fun getMovieDetail(movie_id: String, language: String) = viewModelScope.launch(Dispatchers.IO) {
@@ -43,14 +42,20 @@ class MovieViewModel @Inject constructor(
 
     fun getPopular(page: Int, language: String) = viewModelScope.launch(Dispatchers.IO) {
         getPopularMoviesUseCase(page = page, language = language).collect {
-            _listMovies.value = it
+            _listPopularMovies.value = it
+        }
+    }
+
+    fun getTopRated(page: Int, language: String) = viewModelScope.launch(Dispatchers.IO) {
+        getTopRatedMoviesUseCase.getTopRated(page = page, language = language).collect {
+            _listTopRatedMovies.value = it
         }
     }
 
     fun searchMovie(page: String, name: String, language: String) =
         viewModelScope.launch(Dispatchers.IO) {
             searchMovieUseCase(page = page, name = name, language = language).collect {
-                _listMovies.value = it
+                _listPopularMovies.value = it
             }
         }
 
@@ -64,7 +69,7 @@ class MovieViewModel @Inject constructor(
                         if (trailerEn.isNotEmpty()) {
                             _trailer.value = trailerEn[0].key!!
                         } else {
-                            _trailer.value = "empty"
+                            initTrailerViewModel()
                         }
                     }
                 }

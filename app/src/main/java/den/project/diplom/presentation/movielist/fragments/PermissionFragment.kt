@@ -42,9 +42,9 @@ class PermissionFragment : Fragment(R.layout.fragment_permission) {
         createDialog(dialog = dialogPermission).show()
     }
 
-    private fun chekPermission() {
-
-    }
+//    private fun chekPermission() {
+//
+//    }
 
     private fun createDialog(dialog: DialogInterface.OnClickListener) =
         AlertDialog.Builder(requireContext())
