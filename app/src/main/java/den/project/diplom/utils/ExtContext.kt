@@ -9,4 +9,3 @@ val Context.appComponent: AppComponent
         is App -> appComponent
         else -> this.applicationContext.appComponent
     }
-

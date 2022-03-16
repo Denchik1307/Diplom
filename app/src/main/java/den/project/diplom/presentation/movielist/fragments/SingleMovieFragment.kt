@@ -46,6 +46,8 @@ class SingleMovieFragment : Fragment(R.layout.fragment_single_movie) {
                                 R.anim.scale
                             )
                         )
+                        tvStatus.text = movieDetail.status
+                        tvTagLine.text = movieDetail.tagline
                         tvTitleMovie.text = movieDetail.title
                         tvDateMovieRelease.text = movieDetail.releaseDate
                         tvGenreMovie.text = movieDetail.genres

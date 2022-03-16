@@ -6,6 +6,8 @@ object Logging {
     var isLogging = false
 
     fun showLogTagMovie(msg:Any, name:String){
-        Log.d("MOVIE", "$msg - $name")
+        if (isLogging){
+            Log.d("MOVIE", "$msg - $name")
+        }
     }
 }

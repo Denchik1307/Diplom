@@ -20,7 +20,7 @@ class MovieHolder(
         with(binding) {
             Glide.with(context).load(BASE_PATH_POSTER + movie.posterPath).into(imMoviePoster)
             Glide.with(context).load(BASE_PATH_POSTER + movie.backdropPath).into(imBackgroundPoster)
-            tvTitleMovie.text = movie.title
+            tvTitleMovie.text = "${movie.title}\n(${movie.originalTitle})"
             tvDateMovieRelease.text = movie.releaseDate
             tvOverview.text = movie.overview
             tvGenreMovie.text = GenresId.genreIdToStringGenre(movie.genre)
@@ -41,8 +41,6 @@ class MovieHolder(
             imMoviePoster.setOnClickListener {
                 itemMovieListener.onMoviesClickListener(movie.id.toString())
             }
-
-
         }
     }
 

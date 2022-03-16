@@ -78,8 +78,6 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
             val firstVisibleItemCount = recycler.findFirstVisibleItemPosition()
             val spanCount = recycler.spanCount
             val baseline = recycler.baseline
-            val childCount = recycler.childCount
-            val initialPrefetchItemCount = recycler.initialPrefetchItemCount
             val dxAbsolute = dx.absoluteValue
             val dxSign = dx.sign
             val itemCount = recycler.itemCount
@@ -97,8 +95,8 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
                 showLogTagMovie(spanCount, "spanCount")
                 showLogTagMovie(pagePopular, "pagePopular")
                 showLogTagMovie(baseline, "baseline")
-                showLogTagMovie(childCount, "childCount")
-                showLogTagMovie(initialPrefetchItemCount, "initialPrefetchItemCount")
+                showLogTagMovie(recycler.childCount, "childCount")
+                showLogTagMovie(recycler.initialPrefetchItemCount, "initialPrefetchItemCount")
                 showLogTagMovie(itemCount, "itemCount")
                 showLogTagMovie(dxAbsolute, "dxAbsolute")
                 showLogTagMovie(dxSign, "dxSign")
@@ -106,11 +104,20 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
         }
     }
 
+
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.initTrailerViewModel()
+        isInit = false
+        initYoutubeObserver()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        isInit = false
-        viewModel.initTrailerViewModel()
+
         showPopularMovie()
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -191,6 +198,11 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
                     ).show()
                 } else {
                     isInit = true
+                    Toast.makeText(
+                        requireContext(),
+                        "true",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }
