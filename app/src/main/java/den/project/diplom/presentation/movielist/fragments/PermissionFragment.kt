@@ -9,8 +9,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import den.project.diplom.R
 import den.project.diplom.databinding.FragmentPermissionBinding
-import den.project.diplom.utils.Logging.isLogging
-import den.project.diplom.utils.Logging.showLogTagMovie
+import den.project.diplom.utils.Logging.showLog
 import den.project.diplom.utils.Permission
 import javax.inject.Inject
 
@@ -21,38 +20,44 @@ class PermissionFragment : Fragment(R.layout.fragment_permission) {
 
     @Inject
     lateinit var permission: Permission
+    private val dialogCanceled by lazy {
+        DialogInterface.OnCancelListener {
+            binding.tvPermission.text = "you can`t use application without INTERNET"
+        }
+    }
     private val dialogPermission by lazy {
         DialogInterface.OnClickListener { _, _ ->
             if (!permission.isPermissionGranted(requireActivity())) {
                 permission.requestPermission(requireActivity())
-                if (isLogging) {
-                    showLogTagMovie("MOVIE", "entry")
-                }
+                showLog("MOVIE", "entry")
             } else {
                 binding.tvPermission.text = "good"
-                if (isLogging) {
-                    showLogTagMovie("MOVIE", "good")
-                }
+                showLog("MOVIE", "good")
             }
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        createDialog(dialog = dialogPermission).show()
+        binding.bvGetPermission.setOnClickListener {
+            createDialog(dialogListener = dialogPermission, dialogCanceled = dialogCanceled).show()
+        }
     }
 
 //    private fun chekPermission() {
 //
 //    }
 
-    private fun createDialog(dialog: DialogInterface.OnClickListener) =
-        AlertDialog.Builder(requireContext())
-            .setIcon(R.drawable.ic_alert)
-            .setTitle("123")
-            .setMessage("456")
-            .setPositiveButton("ok", dialog)
-            .setCancelable(false)
-            .create()
+    private fun createDialog(
+        dialogListener: DialogInterface.OnClickListener,
+        dialogCanceled: DialogInterface.OnCancelListener,
+    ) = AlertDialog.Builder(requireContext())
+        .setIcon(R.drawable.ic_alert)
+        .setTitle("PERMISSION")
+        .setMessage("Need assess INTERNET permission")
+        .setPositiveButton("ok", dialogListener)
+        .setCancelable(true)
+        .setOnCancelListener(dialogCanceled)
+        .create()
 
 }

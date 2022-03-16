@@ -16,19 +16,30 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/searchMovie"
-            android:layout_width="20dp"
+            android:id="@+id/tvSearchMovie"
+            android:layout_width="200dp"
             android:layout_height="20dp"
             android:layout_margin="5dp"
             android:textColor="@color/light_green"
+            android:background="@color/gradient_one"
+            app:layout_constraintBottom_toBottomOf="@id/layout"
+            app:layout_constraintEnd_toStartOf="@id/filterMovie"
+            app:layout_constraintTop_toTopOf="@id/layout"/>
+
+        <ImageView
+            android:id="@+id/btSearchMovie"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_margin="5dp"
             android:background="@drawable/ic_search"
+            app:layout_constraintBottom_toBottomOf="@id/layout"
             app:layout_constraintEnd_toStartOf="@id/filterMovie"
             app:layout_constraintTop_toTopOf="@id/layout" />
 
         <ImageView
             android:id="@+id/filterMovie"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_margin="5dp"
             android:src="@drawable/ic_filter_movie"
             app:layout_constraintEnd_toEndOf="@id/layout"

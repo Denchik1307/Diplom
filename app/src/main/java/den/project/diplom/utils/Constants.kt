@@ -7,5 +7,5 @@ object Constants {
     const val BASE_PATH_POSTER = "https://image.tmdb.org/t/p/w500"
     const val BASE_PATH_TRAILER = "https://www.youtube.com/watch?v="
     const val BASE_PATH_TRAILER2 = "vnd.youtube:"
-    const val REQUEST_PERMISSIOM_CODE = 1001011
+    const val REQUEST_PERMISSION_CODE = 1001011
 }

@@ -24,8 +24,7 @@ import den.project.diplom.presentation.movielist.adapters.movieadapter.ItemMovie
 import den.project.diplom.presentation.movielist.adapters.movieadapter.MovieAdapter
 import den.project.diplom.presentation.movielist.viewmodel.MovieViewModel
 import den.project.diplom.utils.Constants
-import den.project.diplom.utils.Logging.isLogging
-import den.project.diplom.utils.Logging.showLogTagMovie
+import den.project.diplom.utils.Logging.showLog
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -46,7 +45,7 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
     private var pageSearch: Int = 1
     private val itemMovieListener: ItemMovieListener = object : ItemMovieListener {
         override fun idClickListener(id: String) {
-            showLogTagMovie("MOVIE", id)
+            showLog("MOVIE", id)
             viewModel.getTrailer(id)
         }
 
@@ -73,55 +72,53 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
             super.onScrolled(recyclerView, dx, dy)
             val recycler = recyclerView.layoutManager as GridLayoutManager
             val lastCompleteItemCount = recycler.findLastCompletelyVisibleItemPosition()
-            val lastVisibleItemCount = recycler.findLastVisibleItemPosition()
-            val firstCompleteItemCount = recycler.findFirstCompletelyVisibleItemPosition()
-            val firstVisibleItemCount = recycler.findFirstVisibleItemPosition()
-            val spanCount = recycler.spanCount
-            val baseline = recycler.baseline
-            val dxAbsolute = dx.absoluteValue
-            val dxSign = dx.sign
             val itemCount = recycler.itemCount
             if (itemCount <= lastCompleteItemCount + 1 && pagePopular != Constants.MAX_PAGE && !isSearch) {
-
                 pagePopular++
-                showPopularMovie()
+                showPopularMovie(pagePopular)
                 recycler.scrollToPosition(1)
             }
-            if (isLogging) {
-                showLogTagMovie(lastCompleteItemCount, "lastCompleteItemCount")
-                showLogTagMovie(lastVisibleItemCount, "lastVisibleItemCount")
-                showLogTagMovie(firstCompleteItemCount, "firstCompleteItemCount")
-                showLogTagMovie(firstVisibleItemCount, "firstVisibleItemCount")
-                showLogTagMovie(spanCount, "spanCount")
-                showLogTagMovie(pagePopular, "pagePopular")
-                showLogTagMovie(baseline, "baseline")
-                showLogTagMovie(recycler.childCount, "childCount")
-                showLogTagMovie(recycler.initialPrefetchItemCount, "initialPrefetchItemCount")
-                showLogTagMovie(itemCount, "itemCount")
-                showLogTagMovie(dxAbsolute, "dxAbsolute")
-                showLogTagMovie(dxSign, "dxSign")
-            }
+            showLog(lastCompleteItemCount, "lastCompleteItemCount")
+            showLog(recycler.findLastVisibleItemPosition(), "lastVisibleItemCount")
+            showLog(recycler.findFirstCompletelyVisibleItemPosition(),
+                    "firstCompleteItemCount")
+            showLog(recycler.findFirstVisibleItemPosition(), "firstVisibleItemCount")
+            showLog(recycler.spanCount, "spanCount")
+            showLog(pagePopular, "pagePopular")
+            showLog(recycler.baseline, "baseline")
+            showLog(recycler.childCount, "childCount")
+            showLog(recycler.initialPrefetchItemCount, "initialPrefetchItemCount")
+            showLog(itemCount, "itemCount")
+            showLog(dx.absoluteValue, "dxAbsolute")
+            showLog(dx.sign, "dxSign")
         }
     }
 
+    init {
+        Log.d("!!!","init")
+    }
 
+    override fun onStart() {
+        super.onStart()
+        Log.d("!!!","onStart")
+    }
 
     override fun onResume() {
         super.onResume()
-        viewModel.initTrailerViewModel()
-        isInit = false
-        initYoutubeObserver()
+        Log.d("!!!","onResume")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        showPopularMovie()
-
+        Log.d("!!!","onCreate")
+        showPopularMovie(pagePopular)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.initTrailerViewModel()
+        isInit = false
+        Log.d("!!!","onViewCreated")
         initRecycler()
         initYoutubeObserver()
         lifecycleScope.launch {
@@ -130,21 +127,21 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
             }
         }
         with(binding) {
-            if (searchMovie.isInLayout){
-                Log.d("MOVIE",searchMovie.isCursorVisible.toString())
-                Log.d("MOVIE",searchMovie.isActivated.toString())
-                Log.d("MOVIE",searchMovie.isEnabled.toString())
-                Log.d("MOVIE",searchMovie.isFocused.toString())
-                searchMovie.height = 150
-            }else{
-                searchMovie.width = 200
-                Log.d("MOVIE",searchMovie.isCursorVisible.toString())
-                Log.d("MOVIE",searchMovie.isActivated.toString())
-                Log.d("MOVIE",searchMovie.isEnabled.toString())
-                Log.d("MOVIE",searchMovie.isFocused.toString())
-                Log.d("MOVIE","low")
+            if (tvSearchMovie.isPressed) {
+                showLog("MOVIE", tvSearchMovie.isCursorVisible.toString())
+                showLog("MOVIE", tvSearchMovie.isActivated.toString())
+                showLog("MOVIE", tvSearchMovie.isEnabled.toString())
+                showLog("MOVIE", tvSearchMovie.isFocused.toString())
+                tvSearchMovie.width = 200
+            }else {
+                tvSearchMovie.width = 200
+                showLog("MOVIE", tvSearchMovie.isCursorVisible.toString())
+                showLog("MOVIE", tvSearchMovie.isActivated.toString())
+                showLog("MOVIE", tvSearchMovie.isEnabled.toString())
+                showLog("MOVIE", tvSearchMovie.isFocused.toString())
+                showLog("MOVIE", "low")
             }
-            searchMovie.addTextChangedListener { searchText ->
+            tvSearchMovie.addTextChangedListener { searchText ->
                 if (searchText!!.length >= 3) {
                     lifecycleScope.launch {
                         delay(500L)
@@ -153,10 +150,10 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
                 }
                 if (searchText.isEmpty()) {
                     pagePopular = 1
-                    showPopularMovie()
+                    showPopularMovie(pagePopular)
                 }
             }
-            showPopularMovie()
+            showPopularMovie(pagePopular)
             binding.container.startAnimation(
                 AnimationUtils.loadAnimation(
                     requireContext(),
@@ -164,10 +161,10 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
                 )
             )
         }
-
     }
 
     private fun initRecycler() {
+        Log.d("!!!","initRecycler")
         binding.apply {
             recyclerMovieList.adapter = movieAdapter
             recyclerMovieList.layoutManager = GridLayoutManager(requireContext(), 2)
@@ -176,6 +173,7 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
     }
 
     private fun initYoutubeObserver() {
+        Log.d("!!!","initYoutubeObserver")
         viewModel.trailer.observe(viewLifecycleOwner) {
             if (it != "empty") {
                 val intentOne =
@@ -198,18 +196,14 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
                     ).show()
                 } else {
                     isInit = true
-                    Toast.makeText(
-                        requireContext(),
-                        "true",
-                        Toast.LENGTH_LONG
-                    ).show()
                 }
             }
         }
     }
 
-    private fun showPopularMovie() {
-        viewModel.getTopRated(page = pagePopular, language = "ru")
+    private fun showPopularMovie(page: Int) {
+        Log.d("!!!","showPopularMovie")
+        viewModel.getTopRated(page = page, language = "ru")
     }
 
 }
