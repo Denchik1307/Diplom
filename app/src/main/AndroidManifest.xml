@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="den.project.diplom">
+    package="den.project.imdb">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:name=".App"
+        android:icon="@drawable/round_popularity_background"
+        android:name="den.project.imdb.App"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/round_popularity_background"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Diplom">
+        android:theme="@style/Theme">
         <activity
-            android:name=".presentation.MainActivity"
+            android:name="den.project.imdb.presentation.MainActivity"
             android:screenOrientation="userPortrait"
             android:exported="true"
             tools:ignore="LockedOrientationActivity">
